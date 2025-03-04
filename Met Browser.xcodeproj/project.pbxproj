@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E4A5A31D2D77776D00631F4A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E4A5A31C2D77776D00631F4A /* Alamofire */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		E4A5A2FF2D77773100631F4A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4A5A31D2D77776D00631F4A /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +117,7 @@
 			);
 			name = "Met Browser";
 			packageProductDependencies = (
+				E4A5A31C2D77776D00631F4A /* Alamofire */,
 			);
 			productName = "Met Browser";
 			productReference = E4A5A2EE2D77772F00631F4A /* Met Browser.app */;
@@ -195,6 +201,9 @@
 			);
 			mainGroup = E4A5A2E52D77772F00631F4A;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				E4A5A31B2D77776D00631F4A /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E4A5A2EF2D77772F00631F4A /* Products */;
 			projectDirPath = "";
@@ -558,6 +567,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E4A5A31B2D77776D00631F4A /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E4A5A31C2D77776D00631F4A /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E4A5A31B2D77776D00631F4A /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E4A5A2E62D77772F00631F4A /* Project object */;
 }
