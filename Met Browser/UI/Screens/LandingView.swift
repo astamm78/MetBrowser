@@ -44,7 +44,7 @@ struct LandingView: View {
                         NavigationLink {
                             MetObjectDetail(metObject: metObject)
                         } label: {
-                            Text(metObject.title)
+                            MetObjectCell(metObject: metObject)
                         }
                     }
                 }

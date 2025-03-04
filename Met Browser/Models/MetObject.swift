@@ -40,6 +40,12 @@ struct MetObject: Codable, Previewable, Identifiable {
         return URL(string: primaryImage)
     }
     
+    var primaryImageSmallURL: URL? {
+        guard !primaryImageSmall.isEmpty else { return nil }
+        
+        return URL(string: primaryImageSmall)
+    }
+    
     var wikidataURL: URL? {
         guard !objectWikidata_URL.isEmpty else { return nil }
         
