@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E4A5A31D2D77776D00631F4A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E4A5A31C2D77776D00631F4A /* Alamofire */; };
+		E4F1FAC02D778E9500FED931 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E4F1FABF2D778E9500FED931 /* Alamofire */; };
+		E4F1FAC82D778F0E00FED931 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = E4F1FAC72D778F0E00FED931 /* SDWebImageSwiftUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +57,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4A5A31D2D77776D00631F4A /* Alamofire in Frameworks */,
+				E4F1FAC82D778F0E00FED931 /* SDWebImageSwiftUI in Frameworks */,
+				E4F1FAC02D778E9500FED931 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,7 +119,8 @@
 			);
 			name = "Met Browser";
 			packageProductDependencies = (
-				E4A5A31C2D77776D00631F4A /* Alamofire */,
+				E4F1FABF2D778E9500FED931 /* Alamofire */,
+				E4F1FAC72D778F0E00FED931 /* SDWebImageSwiftUI */,
 			);
 			productName = "Met Browser";
 			productReference = E4A5A2EE2D77772F00631F4A /* Met Browser.app */;
@@ -202,7 +205,8 @@
 			mainGroup = E4A5A2E52D77772F00631F4A;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				E4A5A31B2D77776D00631F4A /* XCRemoteSwiftPackageReference "Alamofire" */,
+				E4F1FABE2D778E9500FED931 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				E4F1FAC62D778F0E00FED931 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E4A5A2EF2D77772F00631F4A /* Products */;
@@ -571,7 +575,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E4A5A31B2D77776D00631F4A /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		E4F1FABE2D778E9500FED931 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
 			requirement = {
@@ -579,13 +583,26 @@
 				minimumVersion = 5.10.2;
 			};
 		};
+		E4F1FAC62D778F0E00FED931 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E4A5A31C2D77776D00631F4A /* Alamofire */ = {
+		E4F1FABF2D778E9500FED931 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E4A5A31B2D77776D00631F4A /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = E4F1FABE2D778E9500FED931 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		E4F1FAC72D778F0E00FED931 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E4F1FAC62D778F0E00FED931 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

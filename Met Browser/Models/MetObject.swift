@@ -31,4 +31,16 @@ struct MetObject: Codable, Previewable {
     var dimensions: String
     var creditLine: String
     var objectWikidata_URL: String
+    
+    var primaryImageURL: URL? {
+        guard !primaryImage.isEmpty else { return nil }
+        
+        return URL(string: primaryImage)
+    }
+    
+    var wikidataURL: URL? {
+        guard !objectWikidata_URL.isEmpty else { return nil }
+        
+        return URL(string: objectWikidata_URL)
+    }
 }
