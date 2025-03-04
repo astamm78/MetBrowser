@@ -7,7 +7,9 @@
 
 import Foundation
 
-struct ObjectsResponse: Codable {
+struct ObjectsResponse: Codable, Previewable {
+    typealias PreviewType = ObjectsResponse
+    
     var total: Int
     var objectIDs: [Int]
 }

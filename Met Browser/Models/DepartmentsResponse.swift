@@ -7,11 +7,15 @@
 
 import Foundation
 
-struct DepartmentsResponse: Codable {
+struct DepartmentsResponse: Codable, Previewable {
+    typealias PreviewType = DepartmentsResponse
+    
     var departments: [Department]
 }
 
-struct Department: Codable {
+struct Department: Codable, Previewable {
+    typealias PreviewType = Department
+    
     var departmentId: Int
     var displayName: String
 }
