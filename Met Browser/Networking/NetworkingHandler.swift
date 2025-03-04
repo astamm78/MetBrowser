@@ -19,6 +19,8 @@ actor NetworkingHandler: GlobalActor {
     
     func request(endpoint: MetEndpoint) async throws -> Data? {
         return try await withCheckedThrowingContinuation { continuation in
+            print("URL :: \(endpoint.url)")
+            
             AF.request(
                 endpoint.url,
                 method: endpoint.method,

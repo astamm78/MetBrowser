@@ -17,6 +17,13 @@ struct MetObjectDetail: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
             
+            Text(String(metObject.objectID))
+            
+            Text(metObject.primaryImage)
+            Text(metObject.primaryImageSmall)
+            
+            Text(metObject.additionalImages.joined(separator: " "))
+            
             if !metObject.title.isEmpty {
                 Text(metObject.title)
                     .font(.title)

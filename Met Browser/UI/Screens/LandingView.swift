@@ -27,11 +27,17 @@ struct LandingView: View {
                         Text(department.displayName).tag(department.departmentId)
                     }
                 }
-                .onChange(of: viewModel.selectedDepartmentID) { oldValue, newValue in
+                
+                TextField("Search Term", text: $viewModel.searchTerm)
+                
+                Button {
                     Task {
                         await viewModel.search()
                     }
+                } label: {
+                    Text("Search")
                 }
+
                 
                 ScrollView {
                     ForEach(viewModel.metObjects) { metObject in

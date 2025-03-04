@@ -11,5 +11,5 @@ struct ObjectsResponse: Codable, Previewable {
     typealias PreviewType = ObjectsResponse
     
     var total: Int
-    var objectIDs: [Int]
+    var objectIDs: [Int]?
 }

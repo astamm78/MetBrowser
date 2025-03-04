@@ -8,8 +8,8 @@
 import Foundation
 
 struct SearchService {
-    static func search(term: String) async throws -> ObjectsResponse {
-        let endpoint = MetEndpoint.search(term: term)
+    static func search(term: String, deptID: Int?) async throws -> ObjectsResponse {
+        let endpoint = MetEndpoint.search(term: term, deptId: deptID)
         let data = try await NetworkingHandler.shared.request(endpoint: endpoint)
         let response: ObjectsResponse = try JSONDataHandler.shared.decodeData(data)
         return response

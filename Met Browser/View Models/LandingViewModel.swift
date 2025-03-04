@@ -11,7 +11,12 @@ import SwiftUICore
 class LandingViewModel: ObservableObject {
     @Published var departments: [Department] = []
     @Published var selectedDepartmentID: Int = 0
+    @Published var searchTerm: String = ""
     @Published var metObjects: [MetObject] = []
+    
+    var selectedDepartment: Department? {
+        return departments.first(where: { $0.departmentId == selectedDepartmentID })
+    }
     
     /// For SwiftUI Previews Only
     ///
@@ -22,6 +27,7 @@ class LandingViewModel: ObservableObject {
     init() {
         Task {
             await loadDepartments()
+            await loadHighlights()
         }
     }
     
@@ -34,10 +40,19 @@ class LandingViewModel: ObservableObject {
         }
     }
     
+    fileprivate func loadHighlights() async {
+        do {
+            let results = try await ObjectService.getOilPaintingHighlights()
+            await self.handleObjectIDs(results.objectIDs ?? [])
+        } catch {
+            
+        }
+    }
+    
     func search() async {
         do {
-            let results = try await ObjectService.getObjectIDs(deptIDs: [self.selectedDepartmentID], metadataDate: "2024-01-01")
-            await self.handleObjectIDs(results.objectIDs)
+            let results = try await SearchService.search(term: searchTerm, deptID: selectedDepartmentID)
+            await self.handleObjectIDs(results.objectIDs ?? [])
         } catch {
             print("ERROR - Loading Department \(error)")
         }
@@ -50,14 +65,15 @@ class LandingViewModel: ObservableObject {
     
     @MainActor
     fileprivate func handleObjectIDs(_ objectIDs: [Int]) async {
-        let _objectIDs = Array(objectIDs.prefix(20))
-
         var metObjects: [MetObject] = []
         
-        for objectId in _objectIDs {
+        for objectId in objectIDs.shuffled() {
+            print("RESULTS COUNT :: \(metObjects.count)")
+            guard metObjects.count < 10 else { break }
+            
             do {
-                async let metObject = ObjectService.getObjectDetail(objectID: objectId)
-                metObjects.append(try await metObject)
+                let metObject = try await ObjectService.getObjectDetail(objectID: objectId)
+                metObjects.append(metObject)
             } catch {
                 print("ERROR - Loading Department \(error)")
             }
