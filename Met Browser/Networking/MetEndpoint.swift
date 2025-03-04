@@ -9,10 +9,10 @@ import Foundation
 import Alamofire
 
 enum MetEndpoint {
-    case objects(deptID: Int?, metadataDate: String?)
+    case objects(deptIDs: String?, metadataDate: String?)
     case object(objectID: Int)
     case departments
-    case search(title: String?, artist: String?)
+    case search(title: String?, artist: String?, deptID: Int?)
     
     var baseURL: String {
         "https://collectionapi.metmuseum.org/public/collection/v1/"
@@ -36,7 +36,34 @@ enum MetEndpoint {
     }
     
     var params: Parameters? {
-        return [:]
+        var baseParams: Parameters?
+        
+        switch self {
+        case .objects(let deptIDs, let metadataDate):
+            if let metadataDate {
+                baseParams?["metadataDate"] = metadataDate
+            }
+            
+            if let deptIDs {
+                baseParams?["departmentIds"] = deptIDs
+            }
+        case .search(let title, let artist, let deptID):
+            if let title {
+                baseParams?["title"] = title
+            }
+            
+            if let artist {
+                baseParams?["artistOrCulture"] = artist
+            }
+            
+            if let deptID {
+                baseParams?["departmentId"] = deptID
+            }
+        default:
+            return nil
+        }
+        
+        return baseParams
     }
     
     var url: String {
