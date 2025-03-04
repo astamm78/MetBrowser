@@ -13,8 +13,10 @@ struct DepartmentsResponse: Codable, Previewable {
     var departments: [Department]
 }
 
-struct Department: Codable, Previewable {
+struct Department: Codable, Previewable, Identifiable, Hashable {
     typealias PreviewType = Department
+    
+    var id: Int { departmentId }
     
     var departmentId: Int
     var displayName: String

@@ -1,7 +1,16 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Departments" : {
+
+    },
     "Hello, world!" : {
+
+    },
+    "Select a Department" : {
+
+    },
+    "The MET Browser" : {
 
     }
   },

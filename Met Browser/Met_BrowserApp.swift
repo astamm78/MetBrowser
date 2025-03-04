@@ -11,7 +11,8 @@ import SwiftUI
 struct Met_BrowserApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LandingView()
+                .environmentObject(LandingViewModel())
         }
     }
 }

@@ -36,19 +36,19 @@ enum MetEndpoint {
     }
     
     var params: Parameters? {
-        var baseParams: Parameters?
+        var baseParams: Parameters = [:]
         
         switch self {
         case .objects(let deptIDs, let metadataDate):
             if let metadataDate {
-                baseParams?["metadataDate"] = metadataDate
+                baseParams["metadataDate"] = metadataDate
             }
             
             if let deptIDs {
-                baseParams?["departmentIds"] = deptIDs
+                baseParams["departmentIds"] = deptIDs
             }
         case .search(let term):
-            baseParams?["q"] = term
+            baseParams["q"] = term
         default:
             return nil
         }

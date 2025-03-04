@@ -7,8 +7,10 @@
 
 import Foundation
 
-struct MetObject: Codable, Previewable {
+struct MetObject: Codable, Previewable, Identifiable {
     typealias PreviewType = MetObject
+    
+    var id: Int { objectID }
     
     var objectID: Int
     var isHighlight: Bool
