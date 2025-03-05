@@ -12,4 +12,12 @@ struct ObjectsResponse: Codable, Previewable {
     
     var total: Int
     var objectIDs: [Int]?
+    
+    func objectIDsForDisplay(max: Int, shuffled: Bool = false) -> [Int]? {
+        guard let objectIDs else { return nil }
+        
+        let _objectIDs = shuffled ? objectIDs.shuffled() : objectIDs
+        
+        return Array(_objectIDs.prefix(max))
+    }
 }
