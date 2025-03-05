@@ -14,42 +14,47 @@ struct LandingView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                Image(systemName: "globe")
-                    .imageScale(.large)
-                    .foregroundStyle(.tint)
-                
-                Text("Hello, world!")
-                
-                Picker("Departments", selection: $viewModel.selectedDepartmentID) {
-                    Text("Select a Department").tag(0)
-                    ForEach(viewModel.departments) { department in
-                        Text(department.displayName).tag(department.departmentId)
+            ZStack {
+                VStack {
+                    Image(systemName: "globe")
+                        .imageScale(.large)
+                        .foregroundStyle(.tint)
+                    
+                    Text("Hello, world!")
+                    
+                    Picker("Departments", selection: $viewModel.selectedDepartmentID) {
+                        Text("Select a Department").tag(0)
+                        ForEach(viewModel.departments) { department in
+                            Text(department.displayName).tag(department.departmentId)
+                        }
                     }
-                }
-                
-                TextField("Search Term", text: $viewModel.searchTerm)
-                
-                Button {
-                    Task {
-                        await viewModel.search()
+                    
+                    TextField("Search Term", text: $viewModel.searchTerm)
+                    
+                    Button {
+                        Task {
+                            await viewModel.search()
+                        }
+                    } label: {
+                        Text("Search")
                     }
-                } label: {
-                    Text("Search")
-                }
-
-                
-                ScrollView {
-                    ForEach(viewModel.metObjects) { metObject in
-                        NavigationLink {
-                            MetObjectDetail(metObject: metObject)
-                        } label: {
-                            MetObjectCell(metObject: metObject)
+                    
+                    ScrollView {
+                        ForEach(viewModel.metObjects) { metObject in
+                            NavigationLink {
+                                MetObjectDetail(metObject: metObject)
+                            } label: {
+                                MetObjectCell(metObject: metObject)
+                            }
                         }
                     }
                 }
+                .padding()
+                
+                if viewModel.dataLoading {
+                    LoadingView()
+                }
             }
-            .padding()
         }
         .navigationTitle(Text("The MET Browser"))
     }

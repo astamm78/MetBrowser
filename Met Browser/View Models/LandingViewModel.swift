@@ -13,6 +13,7 @@ class LandingViewModel: ObservableObject {
     @Published var selectedDepartmentID: Int = 0
     @Published var searchTerm: String = ""
     @Published var metObjects: [MetObject] = []
+    @Published var dataLoading: Bool = true
     
     var selectedDepartment: Department? {
         return departments.first(where: { $0.departmentId == selectedDepartmentID })
@@ -41,22 +42,28 @@ class LandingViewModel: ObservableObject {
     }
     
     fileprivate func loadHighlights() async {
+        dataLoading = true
+        
         do {
             let results = try await ObjectService.getOilPaintingHighlights()
             let objectIDs = results.objectIDsForDisplay(max: 15, shuffled: true)
             await self.handleObjectIDs(objectIDs ?? [])
         } catch {
-            
+            print("ERROR - Loading Highlights \(error)")
+            dataLoading = false
         }
     }
     
     func search() async {
+        dataLoading = true
+        
         do {
             let results = try await SearchService.search(term: searchTerm, deptID: selectedDepartmentID)
             let objectIDs = results.objectIDsForDisplay(max: 15, shuffled: false)
             await self.handleObjectIDs(objectIDs ?? [])
         } catch {
             print("ERROR - Loading Department \(error)")
+            dataLoading = false
         }
     }
     
@@ -79,5 +86,6 @@ class LandingViewModel: ObservableObject {
         }
         
         self.metObjects = metObjects
+        dataLoading = false
     }
 }
