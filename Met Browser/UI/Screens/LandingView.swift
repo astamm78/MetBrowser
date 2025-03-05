@@ -15,29 +15,47 @@ struct LandingView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                VStack {
-                    Image(systemName: "globe")
-                        .imageScale(.large)
-                        .foregroundStyle(.tint)
-                    
-                    Text("Hello, world!")
-                    
-                    Picker("Departments", selection: $viewModel.selectedDepartmentID) {
-                        Text("Select a Department").tag(0)
-                        ForEach(viewModel.departments) { department in
-                            Text(department.displayName).tag(department.departmentId)
+                Color.middleGrey
+                    .edgesIgnoringSafeArea(.all)
+                
+                VStack(spacing: 0) {
+                    VStack(spacing: 0) {
+                        Text("The Met Browser")
+                            .foregroundStyle(.offset)
+                            .fontDesign(.serif)
+                            .font(.largeTitle)
+                        
+                        
+                        Picker(
+                            "Departments",
+                            selection: $viewModel.selectedDepartmentID
+                        ) {
+                            Text("Select a Department").tag(0)
+                            ForEach(viewModel.departments) { department in
+                                Text(department.displayName)
+                                    .tag(department.departmentId)
+                            }
                         }
-                    }
-                    
-                    TextField("Search Term", text: $viewModel.searchTerm)
-                    
-                    Button {
-                        Task {
-                            await viewModel.search()
+                        .accentColor(.white)
+                        .frame(maxWidth: .infinity)
+                        
+                        VStack {
+                            HStack {
+                                TextField("Search Term", text: $viewModel.searchTerm)
+                                
+                                Button {
+                                    Task {
+                                        await viewModel.search()
+                                    }
+                                } label: {
+                                    Text("Search")
+                                }
+                            }
+                            .padding()
                         }
-                    } label: {
-                        Text("Search")
+                        .background(.white)
                     }
+                    .background(Color.accentColor)
                     
                     ScrollView {
                         ForEach(viewModel.metObjects) { metObject in
@@ -59,7 +77,6 @@ struct LandingView: View {
                         }
                     }
                 }
-                .padding()
                 
                 if viewModel.dataLoading {
                     LoadingView()
@@ -71,10 +88,11 @@ struct LandingView: View {
 }
 
 #Preview {
-    LandingView()
-        .environmentObject(
-            LandingViewModel(
-                departments: DepartmentsResponse.preview.departments
-            )
-        )
+    let vm = LandingViewModel(
+        departments: DepartmentsResponse.preview.departments
+    )
+    
+    vm.dataLoading = false
+    
+    return LandingView().environmentObject(vm)
 }
