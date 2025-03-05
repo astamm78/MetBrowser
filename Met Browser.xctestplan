@@ -1,0 +1,43 @@
+{
+  "configurations" : [
+    {
+      "id" : "7ED9A4C0-1135-4443-92EC-4F73ED27B85E",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Met Browser.xcodeproj",
+      "identifier" : "E4A5A2ED2D77772F00631F4A",
+      "name" : "Met Browser"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "skippedTests" : [
+        "Met_BrowserTests",
+        "Met_BrowserTests\/testExample()",
+        "Met_BrowserTests\/testPerformanceExample()"
+      ],
+      "target" : {
+        "containerPath" : "container:Met Browser.xcodeproj",
+        "identifier" : "E4A5A2FD2D77773100631F4A",
+        "name" : "Met BrowserTests"
+      }
+    },
+    {
+      "enabled" : false,
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Met Browser.xcodeproj",
+        "identifier" : "E4A5A3072D77773100631F4A",
+        "name" : "Met BrowserUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

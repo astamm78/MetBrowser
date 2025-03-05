@@ -47,6 +47,16 @@ struct LandingView: View {
                                 MetObjectCell(metObject: metObject)
                             }
                         }
+                        
+                        if viewModel.currentPage < viewModel.paginatedObjectIDs?.totalPages ?? 0 {
+                            Button {
+                                Task {
+                                    await viewModel.loadNextPage()
+                                }
+                            } label: {
+                                Text("Load Next Page")
+                            }
+                        }
                     }
                 }
                 .padding()

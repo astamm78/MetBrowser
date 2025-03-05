@@ -20,14 +20,15 @@ final class ObjectsResponse_tests: XCTestCase {
         objectsResponse = nil
     }
 
-    func test_objectIDsForDisplay() throws {
-        let ids = objectsResponse.objectIDsForDisplay(max: 5, shuffled: true)
+    func test_paginatedObjectIDs() throws {
+        let paginatedObjectIDs = objectsResponse.paginatedObjectIDs(pageSize: 3)
         
-        // Should return an array of the correct size
-        XCTAssertTrue(ids?.count == 5)
-        
-        // Should return an array in a different order than the first N of the original array
-        XCTAssertTrue(ids != Array(objectsResponse.objectIDs?.prefix(5) ?? []))
+        XCTAssertTrue(paginatedObjectIDs?.totalPages == 4)
+        XCTAssertTrue(paginatedObjectIDs?.totalObjects == 10)
+        XCTAssertTrue(paginatedObjectIDs?.objectIDs(for: 1)?.count ?? 0 == 3)
+        XCTAssertTrue(paginatedObjectIDs?.objectIDs(for: 2)?.count ?? 0 == 3)
+        XCTAssertTrue(paginatedObjectIDs?.objectIDs(for: 3)?.count ?? 0 == 3)
+        XCTAssertTrue(paginatedObjectIDs?.objectIDs(for: 4)?.count ?? 0 == 1)
     }
 
 }

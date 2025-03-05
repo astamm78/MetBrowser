@@ -8,12 +8,15 @@
 import Foundation
 import SwiftUICore
 
+@MainActor
 class LandingViewModel: ObservableObject {
     @Published var departments: [Department] = []
     @Published var selectedDepartmentID: Int = 0
     @Published var searchTerm: String = ""
     @Published var metObjects: [MetObject] = []
     @Published var dataLoading: Bool = true
+    @Published var paginatedObjectIDs: PaginatedObjectIDs?
+    @Published var currentPage: Int = 0
     
     var selectedDepartment: Department? {
         return departments.first(where: { $0.departmentId == selectedDepartmentID })
@@ -35,19 +38,24 @@ class LandingViewModel: ObservableObject {
     fileprivate func loadDepartments() async {
         do {
             let departmentsResponse = try await DepartmentService.getDepartments()
-            await self.handleDepartments(departmentsResponse.departments)
+            self.departments = departmentsResponse.departments
         } catch {
             print("ERROR - Loading Departments \(error)")
         }
     }
+
+    fileprivate func resetView() {
+        metObjects = []
+        dataLoading = true
+        currentPage = 0
+    }
     
     fileprivate func loadHighlights() async {
-        dataLoading = true
+        resetView()
         
         do {
-            let results = try await ObjectService.getOilPaintingHighlights()
-            let objectIDs = results.objectIDsForDisplay(max: 15, shuffled: true)
-            await self.handleObjectIDs(objectIDs ?? [])
+            let objectsResponse = try await ObjectService.getOilPaintingHighlights()
+            await self.handledObjectsResponse(objectsResponse, shuffled: true)
         } catch {
             print("ERROR - Loading Highlights \(error)")
             dataLoading = false
@@ -55,37 +63,45 @@ class LandingViewModel: ObservableObject {
     }
     
     func search() async {
-        dataLoading = true
+        resetView()
         
         do {
-            let results = try await SearchService.search(term: searchTerm, deptID: selectedDepartmentID)
-            let objectIDs = results.objectIDsForDisplay(max: 15, shuffled: false)
-            await self.handleObjectIDs(objectIDs ?? [])
+            let objectsResponse = try await SearchService.search(term: searchTerm, deptID: selectedDepartmentID)
+            await self.handledObjectsResponse(objectsResponse)
         } catch {
             print("ERROR - Loading Department \(error)")
             dataLoading = false
         }
     }
     
-    @MainActor
-    fileprivate func handleDepartments(_ departments: [Department]) {
-        self.departments = departments
+    fileprivate func handledObjectsResponse(_ objectsResponse: ObjectsResponse, shuffled: Bool = false) async {
+        self.paginatedObjectIDs = objectsResponse.paginatedObjectIDs(pageSize: 15, shuffled: shuffled)
+        await self.loadPage(1)
     }
     
-    @MainActor
-    fileprivate func handleObjectIDs(_ objectIDs: [Int]) async {
-        var metObjects: [MetObject] = []
+    func loadNextPage() async {
+        await loadPage(currentPage + 1)
+    }
+    
+    fileprivate func loadPage(_ page: Int) async {
+        guard let paginatedObjectIDs,
+              let objectIDs = paginatedObjectIDs.objectIDs(for: page) else { return }
+        
+        dataLoading = true
+        
+        var mutableMetObjects = self.metObjects
         
         for objectId in objectIDs {
             do {
                 let metObject = try await ObjectService.getObjectDetail(objectID: objectId)
-                metObjects.append(metObject)
+                mutableMetObjects.append(metObject)
             } catch {
-                print("ERROR - Loading Department \(error)")
+                print("ERROR - Loading Object \(error)")
             }
         }
         
-        self.metObjects = metObjects
+        self.currentPage = page
+        self.metObjects = mutableMetObjects
         dataLoading = false
     }
 }

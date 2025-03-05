@@ -13,11 +13,18 @@ struct ObjectsResponse: Codable, Previewable {
     var total: Int
     var objectIDs: [Int]?
     
-    func objectIDsForDisplay(max: Int, shuffled: Bool = false) -> [Int]? {
+    func paginatedObjectIDs(pageSize: Int, shuffled: Bool = false) -> PaginatedObjectIDs? {
         guard let objectIDs else { return nil }
         
-        let _objectIDs = shuffled ? objectIDs.shuffled() : objectIDs
+        let chunks = (shuffled ? objectIDs.shuffled() : objectIDs).chunked(pageSize)
+        let pages = chunks.enumerated().map { (index, chunk) in
+            PaginatedObjectIDs.Page(page: index + 1, objectIDs: chunk)
+        }
         
-        return Array(_objectIDs.prefix(max))
+        return PaginatedObjectIDs(
+            totalPages: chunks.count,
+            totalObjects: objectIDs.count,
+            pages: pages
+        )
     }
 }

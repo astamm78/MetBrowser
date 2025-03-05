@@ -29,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E46020322D78F2C700CDACBE /* Met Browser.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Met Browser.xctestplan"; sourceTree = "<group>"; };
 		E4A5A2EE2D77772F00631F4A /* Met Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Met Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4A5A2FE2D77773100631F4A /* Met BrowserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Met BrowserTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4A5A3082D77773100631F4A /* Met BrowserUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Met BrowserUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,6 +83,7 @@
 		E4A5A2E52D77772F00631F4A = {
 			isa = PBXGroup;
 			children = (
+				E46020322D78F2C700CDACBE /* Met Browser.xctestplan */,
 				E4A5A2F02D77772F00631F4A /* Met Browser */,
 				E4A5A3012D77773100631F4A /* Met BrowserTests */,
 				E4A5A30B2D77773100631F4A /* Met BrowserUITests */,
