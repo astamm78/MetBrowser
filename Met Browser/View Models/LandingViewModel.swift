@@ -43,7 +43,7 @@ class LandingViewModel: ObservableObject {
     fileprivate func loadHighlights() async {
         do {
             let results = try await ObjectService.getOilPaintingHighlights()
-            await self.handleObjectIDs(results.objectIDs ?? [])
+            await self.handleObjectIDs(results.objectIDs ?? [], shuffle: true)
         } catch {
             
         }
@@ -52,7 +52,7 @@ class LandingViewModel: ObservableObject {
     func search() async {
         do {
             let results = try await SearchService.search(term: searchTerm, deptID: selectedDepartmentID)
-            await self.handleObjectIDs(results.objectIDs ?? [])
+            await self.handleObjectIDs(results.objectIDs ?? [], shuffle: false)
         } catch {
             print("ERROR - Loading Department \(error)")
         }
@@ -64,13 +64,12 @@ class LandingViewModel: ObservableObject {
     }
     
     @MainActor
-    fileprivate func handleObjectIDs(_ objectIDs: [Int]) async {
+    fileprivate func handleObjectIDs(_ objectIDs: [Int], shuffle: Bool = false) async {
+        let _objectIDs = shuffle ? objectIDs.shuffled() : objectIDs
+        
         var metObjects: [MetObject] = []
         
-        for objectId in objectIDs.shuffled() {
-            print("RESULTS COUNT :: \(metObjects.count)")
-            guard metObjects.count < 10 else { break }
-            
+        for objectId in _objectIDs.prefix(15) {
             do {
                 let metObject = try await ObjectService.getObjectDetail(objectID: objectId)
                 metObjects.append(metObject)
