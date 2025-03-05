@@ -33,6 +33,7 @@ struct MetObject: Codable, Previewable, Identifiable {
     var dimensions: String
     var creditLine: String
     var objectWikidata_URL: String
+    var tags: [Tag]
     
     var primaryImageURL: URL? {
         guard !primaryImage.isEmpty else { return nil }
@@ -51,4 +52,10 @@ struct MetObject: Codable, Previewable, Identifiable {
         
         return URL(string: objectWikidata_URL)
     }
+}
+
+struct Tag: Codable, Identifiable {
+    var id: String { term }
+    
+    var term: String
 }

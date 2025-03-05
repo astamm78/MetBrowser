@@ -16,12 +16,28 @@ struct MetObjectCell: View {
                 HStack(alignment: .center, spacing: 12) {
                     MetObjectThumbnail(metObject: metObject)
                     
-                    VStack(alignment: .leading) {
-                        Text(metObject.title)
-                            .font(.title3)
+                    VStack(alignment: .leading, spacing: 4) {
+                        if !metObject.title.isEmpty {
+                            Text(metObject.title)
+                                .font(.title3)
+                                .multilineTextAlignment(.leading)
+                        }
                         
-                        Text(metObject.artistDisplayName)
-                            .font(.subheadline)
+                        if !metObject.artistDisplayName.isEmpty {
+                            Text(metObject.artistDisplayName)
+                                .font(.subheadline)
+                                .multilineTextAlignment(.leading)
+                        }
+                        
+                        if !metObject.tags.isEmpty {
+                            HStack(spacing: 8) {
+                                ForEach(metObject.tags) { tag in
+                                    Text(tag.term)
+                                        .font(.caption2)
+                                        .foregroundStyle(.tint)
+                                }
+                            }
+                        }
                     }
                     
                     Spacer()
