@@ -31,7 +31,7 @@ struct MetObjectCell: View {
                         
                         if !metObject.tags.isEmpty {
                             HStack(spacing: 8) {
-                                ForEach(metObject.tags) { tag in
+                                ForEach(metObject.tags.prefix(3)) { tag in
                                     Text(tag.term)
                                         .font(.caption2)
                                         .foregroundStyle(.tint)
