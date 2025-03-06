@@ -29,9 +29,9 @@ struct MetObjectCell: View {
                                 .multilineTextAlignment(.leading)
                         }
                         
-                        if !metObject.tags.isEmpty {
+                        if let tags = metObject.tags, !tags.isEmpty {
                             HStack(spacing: 8) {
-                                ForEach(metObject.tags.prefix(3)) { tag in
+                                ForEach(tags.prefix(3)) { tag in
                                     Text(tag.term)
                                         .font(.caption2)
                                         .foregroundStyle(.tint)

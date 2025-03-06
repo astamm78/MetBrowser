@@ -88,11 +88,6 @@ struct LandingView: View {
 }
 
 #Preview {
-    let vm = LandingViewModel(
-        departments: DepartmentsResponse.preview.departments
-    )
-    
-    vm.dataLoading = false
-    
-    return LandingView().environmentObject(vm)
+    LandingView()
+        .environmentObject(LandingViewModel.preview)
 }

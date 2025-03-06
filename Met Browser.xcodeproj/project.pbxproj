@@ -35,22 +35,9 @@
 		E4A5A3082D77773100631F4A /* Met BrowserUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Met BrowserUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		E485A6FF2D78FD59007F4816 /* Exceptions for "Met Browser" folder in "Met Browser" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Met-Browser-Info.plist",
-			);
-			target = E4A5A2ED2D77772F00631F4A /* Met Browser */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		E4A5A2F02D77772F00631F4A /* Met Browser */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				E485A6FF2D78FD59007F4816 /* Exceptions for "Met Browser" folder in "Met Browser" target */,
-			);
 			path = "Met Browser";
 			sourceTree = "<group>";
 		};

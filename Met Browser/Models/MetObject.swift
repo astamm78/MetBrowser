@@ -33,7 +33,7 @@ struct MetObject: Codable, Previewable, Identifiable {
     var dimensions: String
     var creditLine: String
     var objectWikidata_URL: String
-    var tags: [Tag]
+    var tags: [Tag]?
     
     var primaryImageURL: URL? {
         guard !primaryImage.isEmpty else { return nil }
@@ -58,4 +58,10 @@ struct Tag: Codable, Identifiable {
     var id: String { term }
     
     var term: String
+}
+
+typealias MetObjectCollection = [MetObject]
+
+extension MetObjectCollection: Previewable {
+    typealias PreviewType = MetObjectCollection
 }
