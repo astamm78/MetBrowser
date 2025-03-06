@@ -30,7 +30,7 @@ struct LandingView: View {
                             "Departments",
                             selection: $viewModel.selectedDepartmentID
                         ) {
-                            Text("Select a Department").tag(0)
+                            Text("Search in Department").tag(0)
                             ForEach(viewModel.departments) { department in
                                 Text(department.displayName)
                                     .tag(department.departmentId)
@@ -41,7 +41,7 @@ struct LandingView: View {
                         
                         VStack {
                             HStack {
-                                TextField("Search Term", text: $viewModel.searchTerm)
+                                TextField("Search by Term", text: $viewModel.searchTerm)
                                 
                                 Button {
                                     Task {
@@ -66,13 +66,21 @@ struct LandingView: View {
                             }
                         }
                         
-                        if viewModel.currentPage < viewModel.paginatedObjectIDs?.totalPages ?? 0 {
+                        if viewModel.showViewMoreButton {
                             Button {
                                 Task {
                                     await viewModel.loadNextPage()
                                 }
                             } label: {
-                                Text("Load Next Page")
+                                HStack {
+                                    Text("View More")
+                                        .font(.callout)
+                                        .foregroundStyle(.white)
+                                }
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 6)
+                                .background(Color.accentColor)
+                                .cornerRadius(8)
                             }
                         }
                     }

@@ -24,4 +24,8 @@ final class Previewable_tests: XCTestCase {
     func test_ObjectsResponsePreview() throws {
         XCTAssertNotNil(ObjectsResponse.preview)
     }
+    
+    func test_TagPreview() throws {
+        XCTAssertNotNil(Tag.preview)
+    }
 }

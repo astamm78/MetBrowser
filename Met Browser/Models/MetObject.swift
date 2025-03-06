@@ -54,7 +54,9 @@ struct MetObject: Codable, Previewable, Identifiable {
     }
 }
 
-struct Tag: Codable, Identifiable {
+struct Tag: Codable, Identifiable, Previewable {
+    typealias PreviewType = Tag
+    
     var id: String { term }
     
     var term: String

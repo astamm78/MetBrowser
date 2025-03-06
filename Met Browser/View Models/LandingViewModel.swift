@@ -22,6 +22,13 @@ class LandingViewModel: ObservableObject {
         return departments.first(where: { $0.departmentId == selectedDepartmentID })
     }
     
+    var showViewMoreButton: Bool {
+        guard let paginatedObjectIDs,
+              currentPage != 0 else { return false }
+        
+        return currentPage < paginatedObjectIDs.totalPages
+    }
+    
     /// For SwiftUI Previews Only
     ///
     init(departments: [Department]) {

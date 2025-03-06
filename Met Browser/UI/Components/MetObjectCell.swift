@@ -20,21 +20,21 @@ struct MetObjectCell: View {
                         if !metObject.title.isEmpty {
                             Text(metObject.title)
                                 .font(.title3)
+                                .foregroundStyle(Color.accentColor)
                                 .multilineTextAlignment(.leading)
                         }
                         
                         if !metObject.artistDisplayName.isEmpty {
                             Text(metObject.artistDisplayName)
                                 .font(.subheadline)
+                                .foregroundStyle(Color.offset)
                                 .multilineTextAlignment(.leading)
                         }
                         
                         if let tags = metObject.tags, !tags.isEmpty {
                             HStack(spacing: 8) {
                                 ForEach(tags.prefix(3)) { tag in
-                                    Text(tag.term)
-                                        .font(.caption2)
-                                        .foregroundStyle(.tint)
+                                    TagCell(tag: tag)
                                 }
                             }
                         }
