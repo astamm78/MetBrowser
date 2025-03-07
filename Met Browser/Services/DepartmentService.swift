@@ -7,11 +7,12 @@
 
 import Foundation
 
-struct DepartmentService {
-    static func getDepartments() async throws -> DepartmentsResponse {
+struct DepartmentService: NetworkingService {
+    var networkingHandler: any NetworkingHandlerProtocol
+    
+    func getDepartments() async throws -> DepartmentsResponse {
         let endpoint = MetEndpoint.departments
-        let data = try await NetworkingHandler.shared.request(endpoint: endpoint)
-        let response: DepartmentsResponse = try JSONDataHandler.shared.decodeData(data)
-        return response
+        let obj: DepartmentsResponse = try await networkingHandler.request(endpoint: endpoint)
+        return obj
     }
 }

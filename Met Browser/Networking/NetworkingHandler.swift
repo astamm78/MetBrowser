@@ -10,14 +10,16 @@ import Alamofire
 
 enum NetworkingHandlerError: Error {
     case responseError(afError: AFError)
+    case decodingError(dataError: JSONDataHandlerError)
+    case mockNetworkError
 }
 
-actor NetworkingHandler: GlobalActor {
-    static var shared = NetworkingHandler()
-    
-    private init() {}
-    
-    func request(endpoint: MetEndpoint) async throws -> Data? {
+protocol NetworkingHandlerProtocol {
+    func request<T: Codable>(endpoint: MetEndpoint) async throws -> T
+}
+
+struct NetworkingHandler: NetworkingHandlerProtocol {
+    func request<T: Codable>(endpoint: MetEndpoint) async throws -> T {
         return try await withCheckedThrowingContinuation { continuation in
             AF.request(
                 endpoint.url,
@@ -29,7 +31,14 @@ actor NetworkingHandler: GlobalActor {
                 
                 switch(response.result) {
                 case let .success(data):
-                    continuation.resume(returning: data)
+                    do {
+                        let obj: T = try JSONDataHandler.shared.decodeData(data)
+                        continuation.resume(returning: obj)
+                    } catch {
+                        continuation.resume(
+                            throwing: NetworkingHandlerError.decodingError(dataError: error as! JSONDataHandlerError)
+                        )
+                    }
                 case let .failure(error):
                     continuation.resume(throwing: NetworkingHandlerError.responseError(afError: error))
                 }

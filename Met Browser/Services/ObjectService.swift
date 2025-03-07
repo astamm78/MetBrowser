@@ -7,26 +7,25 @@
 
 import Foundation
 
-struct ObjectService {
-    static func getOilPaintingHighlights() async throws -> ObjectsResponse {
+struct ObjectService: NetworkingService {
+    var networkingHandler: any NetworkingHandlerProtocol
+    
+    func getOilPaintingHighlights() async throws -> ObjectsResponse {
         let endpoint = MetEndpoint.oilPaintingHighlights
-        let data = try await NetworkingHandler.shared.request(endpoint: endpoint)
-        let response: ObjectsResponse = try JSONDataHandler.shared.decodeData(data)
-        return response
+        let obj: ObjectsResponse = try await networkingHandler.request(endpoint: endpoint)
+        return obj
     }
     
-    static func getObjectIDs(deptIDs: [Int]?, metadataDate: String?) async throws -> ObjectsResponse {
+    func getObjectIDs(deptIDs: [Int]?, metadataDate: String?) async throws -> ObjectsResponse {
         let formattedDeptIDs: String? = deptIDs?.map({ String($0) }).joined(separator: "|")
         let endpoint = MetEndpoint.objects(deptIDs: formattedDeptIDs, metadataDate: metadataDate)
-        let data = try await NetworkingHandler.shared.request(endpoint: endpoint)
-        let response: ObjectsResponse = try JSONDataHandler.shared.decodeData(data)
-        return response
+        let obj: ObjectsResponse = try await networkingHandler.request(endpoint: endpoint)
+        return obj
     }
     
-    static func getObjectDetail(objectID: Int) async throws -> MetObject {
+    func getObjectDetail(objectID: Int) async throws -> MetObject {
         let endpoint = MetEndpoint.object(objectID: objectID)
-        let data = try await NetworkingHandler.shared.request(endpoint: endpoint)
-        let response: MetObject = try JSONDataHandler.shared.decodeData(data)
-        return response
+        let obj: MetObject = try await networkingHandler.request(endpoint: endpoint)
+        return obj
     }
 }

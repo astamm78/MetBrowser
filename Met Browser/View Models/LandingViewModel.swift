@@ -18,6 +18,10 @@ class LandingViewModel: ObservableObject {
     @Published var paginatedObjectIDs: PaginatedObjectIDs?
     @Published var currentPage: Int = 0
     
+    let departmentService: DepartmentService!
+    let searchService: SearchService!
+    let objectService: ObjectService!
+    
     var selectedDepartment: Department? {
         return departments.first(where: { $0.departmentId == selectedDepartmentID })
     }
@@ -29,13 +33,11 @@ class LandingViewModel: ObservableObject {
         return currentPage < paginatedObjectIDs.totalPages
     }
     
-    /// For SwiftUI Previews Only
-    ///
-    init(departments: [Department]) {
-        self.departments = departments
-    }
-    
-    init() {
+    init(networkingHandler: NetworkingHandlerProtocol) {
+        self.departmentService = DepartmentService(networkingHandler: networkingHandler)
+        self.searchService = SearchService(networkingHandler: networkingHandler)
+        self.objectService = ObjectService(networkingHandler: networkingHandler)
+        
         Task {
             await loadDepartments()
             await loadHighlights()
@@ -44,7 +46,7 @@ class LandingViewModel: ObservableObject {
     
     fileprivate func loadDepartments() async {
         do {
-            let departmentsResponse = try await DepartmentService.getDepartments()
+            let departmentsResponse = try await departmentService.getDepartments()
             self.departments = departmentsResponse.departments
         } catch {
             print("ERROR - Loading Departments \(error)")
@@ -61,7 +63,7 @@ class LandingViewModel: ObservableObject {
         resetView()
         
         do {
-            let objectsResponse = try await ObjectService.getOilPaintingHighlights()
+            let objectsResponse = try await objectService.getOilPaintingHighlights()
             await self.handledObjectsResponse(objectsResponse, shuffled: true)
         } catch {
             print("ERROR - Loading Highlights \(error)")
@@ -73,7 +75,7 @@ class LandingViewModel: ObservableObject {
         resetView()
         
         do {
-            let objectsResponse = try await SearchService.search(term: searchTerm, deptID: selectedDepartmentID)
+            let objectsResponse = try await searchService.search(term: searchTerm, deptID: selectedDepartmentID)
             await self.handledObjectsResponse(objectsResponse)
         } catch {
             print("ERROR - Loading Department \(error)")
@@ -100,7 +102,7 @@ class LandingViewModel: ObservableObject {
         
         for objectId in objectIDs {
             do {
-                let metObject = try await ObjectService.getObjectDetail(objectID: objectId)
+                let metObject = try await objectService.getObjectDetail(objectID: objectId)
                 mutableMetObjects.append(metObject)
             } catch {
                 print("ERROR - Loading Object \(error)")

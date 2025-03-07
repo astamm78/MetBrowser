@@ -9,10 +9,32 @@ import SwiftUI
 
 @main
 struct Met_BrowserApp: App {
+    var networkingHandler: NetworkingHandlerProtocol!
+    
+    init() {
+        configureNetwork()
+    }
+    
     var body: some Scene {
         WindowGroup {
             LandingView()
-                .environmentObject(LandingViewModel())
+                .environmentObject(LandingViewModel(networkingHandler: networkingHandler))
         }
+    }
+}
+
+enum LaunchArguments {
+    public static var mockNetworkResponses = "-mockNetworkResponses"
+}
+
+extension Met_BrowserApp {
+    fileprivate mutating func configureNetwork() {
+        let args = CommandLine.arguments
+
+        if args.contains(LaunchArguments.mockNetworkResponses) {
+            
+        }
+        
+        networkingHandler = args.contains(LaunchArguments.mockNetworkResponses) ? MockNetworkingHandler() : NetworkingHandler()
     }
 }
