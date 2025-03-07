@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct Constituent: Codable {
+struct Constituent: Codable, Previewable {
+    typealias PreviewType = Constituent
+    
     var constituentID: Int
     var role: String
     var name: String
-    var constituentULAN_URL: String
     var constituentWikidata_URL: String
-    var gender: String
 }

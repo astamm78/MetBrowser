@@ -9,6 +9,10 @@ import XCTest
 @testable import Met_Browser
 
 final class Previewable_tests: XCTestCase {
+    func test_ConstituentPreview() throws {
+        XCTAssertNotNil(Constituent.preview)
+    }
+    
     func test_DepartmentsResponsePreview() throws {
         XCTAssertNotNil(DepartmentsResponse.preview)
     }

@@ -28,9 +28,9 @@ struct MetObjectDetail: View {
                     }
                     
                     VStack(spacing: 8) {
-                        if !metObject.artistDisplayName.isEmpty {
-                            Text(metObject.artistDisplayName)
-                        }
+//                        if !metObject.artistDisplayName.isEmpty {
+//                            Text(metObject.artistDisplayName)
+//                        }
                         
                         if !metObject.department.isEmpty {
                             Text(metObject.department)

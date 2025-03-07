@@ -24,12 +24,12 @@ struct MetObjectCell: View {
                                 .multilineTextAlignment(.leading)
                         }
                         
-                        if !metObject.artistDisplayName.isEmpty {
-                            Text(metObject.artistDisplayName)
-                                .font(.subheadline)
-                                .foregroundStyle(Color.offset)
-                                .multilineTextAlignment(.leading)
-                        }
+//                        if !metObject.artistDisplayName.isEmpty {
+//                            Text(metObject.artistDisplayName)
+//                                .font(.subheadline)
+//                                .foregroundStyle(Color.offset)
+//                                .multilineTextAlignment(.leading)
+//                        }
                         
                         if let tags = metObject.tags, !tags.isEmpty {
                             HStack(spacing: 8) {

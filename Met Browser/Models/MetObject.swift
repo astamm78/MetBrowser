@@ -15,7 +15,6 @@ struct MetObject: Codable, Previewable, Identifiable {
     var objectID: Int
     var isHighlight: Bool
     var accessionYear: String
-    var isPublicDomain: Bool
     var primaryImage: String
     var primaryImageSmall: String
     var additionalImages: [String]
@@ -25,13 +24,9 @@ struct MetObject: Codable, Previewable, Identifiable {
     var culture: String
     var period: String
     var dynasty: String
-    var reign: String
-    var artistDisplayName: String
-    var artistDisplayBio: String
     var objectDate: String
     var medium: String
     var dimensions: String
-    var creditLine: String
     var objectWikidata_URL: String
     var tags: [Tag]?
     
@@ -62,14 +57,6 @@ struct MetObject: Codable, Previewable, Identifiable {
         
         return URL(string: objectWikidata_URL)
     }
-}
-
-struct Tag: Codable, Identifiable, Previewable {
-    typealias PreviewType = Tag
-    
-    var id: String { term }
-    
-    var term: String
 }
 
 typealias MetObjectCollection = [MetObject]

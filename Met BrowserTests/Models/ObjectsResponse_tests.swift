@@ -30,5 +30,21 @@ final class ObjectsResponse_tests: XCTestCase {
         XCTAssertTrue(paginatedObjectIDs?.objectIDs(for: 3)?.count ?? 0 == 3)
         XCTAssertTrue(paginatedObjectIDs?.objectIDs(for: 4)?.count ?? 0 == 1)
     }
+    
+    func test_decoding_missingTotal() throws {
+        let data = removeJSON_Key(key: "total", from: ObjectsResponse.testData())
+
+        AssertThrowsKeyNotFound(
+            "total",
+            decoding: ObjectsResponse.self,
+            from: data
+        )
+    }
+
+    func test_decoding_allowsMissingTags() throws {
+        let data = removeJSON_Key(key: "objectIDs", from: ObjectsResponse.testData())
+        let objectsResponse = ObjectsResponse.loadPreview(from: data)
+        XCTAssertNotNil(objectsResponse)
+    }
 
 }
