@@ -175,5 +175,79 @@ final class MetObject_tests: XCTestCase {
         let metObject = MetObject.loadPreview(from: data)
         XCTAssertNotNil(metObject)
     }
+    
+    func test_primaryImageURL() throws {
+        var metObject = MetObject.preview
+        
+        // When primaryImage is present
+        XCTAssertNotNil(metObject.primaryImageURL)
+        XCTAssertTrue(type(of: metObject.primaryImageURL) == URL?.self, "Expected to be of type URL")
+        
+        // When primaryImage is an empty string
+        metObject.primaryImage = ""
+        XCTAssertNil(metObject.primaryImageURL)
+    }
+    
+    func test_primaryImageSmallURL() throws {
+        var metObject = MetObject.preview
+        
+        // When primaryImageSmall is present
+        XCTAssertNotNil(metObject.primaryImageSmallURL)
+        XCTAssertTrue(type(of: metObject.primaryImageSmallURL) == URL?.self, "Expected to be of type URL")
+        
+        // When primaryImageSmall is an empty string
+        metObject.primaryImageSmall = ""
+        XCTAssertNil(metObject.primaryImageSmallURL)
+    }
+    
+    func test_additionalImagesUrls() throws {
+        var metObject = MetObject.preview
+        
+        // When additionalImages is present
+        XCTAssertNotNil(metObject.additionalImagesUrls)
+        XCTAssertTrue(type(of: metObject.additionalImagesUrls) == [URL?]?.self, "Expected to be of type [URL]")
+        
+        // When additionalImages is an empty array
+        metObject.additionalImages = []
+        XCTAssertNil(metObject.additionalImagesUrls)
+    }
+    
+    func test_displayURL() throws {
+        var metObject = MetObject.preview
+        
+        // When primaryImage is present
+        XCTAssertNotNil(metObject.displayURL)
+        XCTAssertTrue(type(of: metObject.displayURL) == URL?.self, "Expected to be of type URL")
+        XCTAssertEqual(metObject.displayURL, metObject.primaryImageURL)
+        
+        // When primaryImage is absent, primaryImageSmall is pressent
+        metObject.primaryImage = ""
+        XCTAssertNotNil(metObject.displayURL)
+        XCTAssertTrue(type(of: metObject.displayURL) == URL?.self, "Expected to be of type URL")
+        XCTAssertEqual(metObject.displayURL, metObject.primaryImageSmallURL)
+        
+        // When primaryImage is absent, primaryImageSmall is absent, additionalImages are present
+        metObject.primaryImageSmall = ""
+        let firstAdditionalImage = metObject.additionalImagesUrls?.first
+        XCTAssertNotNil(metObject.displayURL)
+        XCTAssertTrue(type(of: metObject.displayURL) == URL?.self, "Expected to be of type URL")
+        XCTAssertEqual(metObject.displayURL, firstAdditionalImage)
+        
+        // When all options are absent
+        metObject.additionalImages = []
+        XCTAssertNil(metObject.displayURL)
+    }
+    
+    func test_wikidataURL() throws {
+        var metObject = MetObject.preview
+        
+        // When objectWikidata_URL is present
+        XCTAssertNotNil(metObject.wikidataURL)
+        XCTAssertTrue(type(of: metObject.wikidataURL) == URL?.self, "Expected to be of type URL")
+        
+        // When objectWikidata_URL is an empty string
+        metObject.objectWikidata_URL = ""
+        XCTAssertNil(metObject.wikidataURL)
+    }
 
 }

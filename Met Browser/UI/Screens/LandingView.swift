@@ -24,6 +24,7 @@ struct LandingView: View {
                             .foregroundStyle(.offset)
                             .fontDesign(.serif)
                             .font(.largeTitle)
+                            .accessibilityIdentifier(TestingIdentifiers.LandingView.headerText)
                         
                         
                         Picker(
@@ -34,14 +35,17 @@ struct LandingView: View {
                             ForEach(viewModel.departments) { department in
                                 Text(department.displayName)
                                     .tag(department.departmentId)
+                                    .accessibilityIdentifier(TestingIdentifiers.LandingView.dropdownOption)
                             }
                         }
                         .accentColor(.white)
                         .frame(maxWidth: .infinity)
+                        .accessibilityIdentifier(TestingIdentifiers.LandingView.departmentsDropdown)
                         
                         VStack {
                             HStack {
                                 TextField("Search by Term", text: $viewModel.searchTerm)
+                                    .accessibilityIdentifier(TestingIdentifiers.LandingView.searchBar)
                                 
                                 Button {
                                     Task {
@@ -50,6 +54,7 @@ struct LandingView: View {
                                 } label: {
                                     Text("Search")
                                 }
+                                .accessibilityIdentifier(TestingIdentifiers.LandingView.searchButton)
                             }
                             .padding()
                         }

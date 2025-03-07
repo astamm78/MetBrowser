@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E421A0B12D7B9A27001E39A7 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = E421A0B02D7B9A27001E39A7 /* SDWebImageSwiftUI */; };
 		E491CB452D7B5C1D008870E4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = E491CB442D7B5C1D008870E4 /* README.md */; };
 		E4F1FAC02D778E9500FED931 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E4F1FABF2D778E9500FED931 /* Alamofire */; };
 		E4F1FAC82D778F0E00FED931 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = E4F1FAC72D778F0E00FED931 /* SDWebImageSwiftUI */; };
@@ -37,6 +38,17 @@
 		E4A5A3082D77773100631F4A /* Met BrowserUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Met BrowserUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		E421A0B52D7B9AFF001E39A7 /* Exceptions for "Met BrowserUITests" folder in "Met Browser" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Helpers/TestingIdentifiers.swift,
+				Helpers/UITestArguments.swift,
+			);
+			target = E4A5A2ED2D77772F00631F4A /* Met Browser */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		E4A5A2F02D77772F00631F4A /* Met Browser */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -50,6 +62,9 @@
 		};
 		E4A5A30B2D77773100631F4A /* Met BrowserUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				E421A0B52D7B9AFF001E39A7 /* Exceptions for "Met BrowserUITests" folder in "Met Browser" target */,
+			);
 			path = "Met BrowserUITests";
 			sourceTree = "<group>";
 		};
@@ -76,12 +91,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E421A0B12D7B9A27001E39A7 /* SDWebImageSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E421A0AD2D7B99FA001E39A7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E4A5A2E52D77772F00631F4A = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +113,7 @@
 				E4A5A2F02D77772F00631F4A /* Met Browser */,
 				E4A5A3012D77773100631F4A /* Met BrowserTests */,
 				E4A5A30B2D77773100631F4A /* Met BrowserUITests */,
+				E421A0AD2D7B99FA001E39A7 /* Frameworks */,
 				E4A5A2EF2D77772F00631F4A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -172,6 +196,7 @@
 			);
 			name = "Met BrowserUITests";
 			packageProductDependencies = (
+				E421A0B02D7B9A27001E39A7 /* SDWebImageSwiftUI */,
 			);
 			productName = "Met BrowserUITests";
 			productReference = E4A5A3082D77773100631F4A /* Met BrowserUITests.xctest */;
@@ -424,8 +449,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "The Met Browser";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -454,8 +478,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "The Met Browser";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -602,6 +625,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E421A0B02D7B9A27001E39A7 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E4F1FAC62D778F0E00FED931 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
 		E4F1FABF2D778E9500FED931 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E4F1FABE2D778E9500FED931 /* XCRemoteSwiftPackageReference "Alamofire" */;

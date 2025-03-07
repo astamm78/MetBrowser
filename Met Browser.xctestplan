@@ -30,7 +30,6 @@
       }
     },
     {
-      "enabled" : false,
       "parallelizable" : true,
       "target" : {
         "containerPath" : "container:Met Browser.xcodeproj",

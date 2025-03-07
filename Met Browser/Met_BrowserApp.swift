@@ -23,18 +23,10 @@ struct Met_BrowserApp: App {
     }
 }
 
-enum LaunchArguments {
-    public static var mockNetworkResponses = "-mockNetworkResponses"
-}
-
 extension Met_BrowserApp {
     fileprivate mutating func configureNetwork() {
         let args = CommandLine.arguments
-
-        if args.contains(LaunchArguments.mockNetworkResponses) {
-            
-        }
         
-        networkingHandler = args.contains(LaunchArguments.mockNetworkResponses) ? MockNetworkingHandler() : NetworkingHandler()
+        networkingHandler = args.contains(UITestArguments.mockNetworkResponses) ? MockNetworkingHandler() : NetworkingHandler()
     }
 }
