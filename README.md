@@ -18,7 +18,7 @@ The Met's free API gives us access to the four following endpoints:
 - **Object**: A record for an object, containing all open access data about that object, including its image (if the image is available under Open Access)
 - **Departments**: A listing of all valid departments, with their department ID and the department display name
 - **Search**: A listing of all Object IDs for objects that contain the search query within the object’s data
-- 
+
 ## API Challenges
 
 There were a few challenges faced in using this API.
@@ -29,7 +29,7 @@ To handle this, the app takes the array of *objectIDs* and creates it's own pagi
 
 Second, the **Search** endpoint provides us with a *hasImages* flag to use in the parameters. However, I found that even when that value is set to **true** often times we would still get results back that had no image URL data. This just means that we had to set up fallback images to display when no image information was returned from the API.
 
-And finally, I found that using an *objectID*—returned from either the **Search** or **Objects** results—in the **Object** would sometimes return an error. This is gracefully handled in the app, by logging an error message to the console. However, the downside is that we're not able to provide accurate result counts to the user and that loading each paginated collection can result in an inconsistent number of objects being loaded for each "page".
+And finally, I found that passing an *objectID*—returned from either the **Search** or **Objects** results—to the **Object** endpoint would sometimes return an error. This is gracefully handled in the app, by logging an error message to the console. However, the downside is that we're not able to provide accurate result counts to the user and that loading each paginated collection can result in an inconsistent number of objects being loaded for each "page".
 
 ## Testing and SwiftUI Previews
 
