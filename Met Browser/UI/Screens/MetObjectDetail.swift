@@ -6,34 +6,67 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct MetObjectDetail: View {
+    @Environment(\.openURL) var openURL
+    
     var metObject: MetObject
     
     var body: some View {
-        VStack {
-            WebImage(url: metObject.primaryImageURL)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-            
-            Text(String(metObject.objectID))
-            
-            Text(metObject.primaryImage)
-            Text(metObject.primaryImageSmall)
-            
-            Text(metObject.additionalImages.joined(separator: " "))
-            
-            if !metObject.title.isEmpty {
-                Text(metObject.title)
-                    .font(.title)
+        NavigationView {
+            ScrollView {
+                VStack(spacing: 12) {
+                    ImageDetail(metObject: metObject)
+                        .frame(maxWidth: .infinity)
+                    
+                    if !metObject.title.isEmpty {
+                        Text(metObject.title)
+                            .font(.title)
+                            .fontDesign(.serif)
+                            .foregroundStyle(.offset)
+                            .multilineTextAlignment(.center)
+                    }
+                    
+                    VStack(spacing: 8) {
+                        if !metObject.artistDisplayName.isEmpty {
+                            Text(metObject.artistDisplayName)
+                        }
+                        
+                        if !metObject.department.isEmpty {
+                            Text(metObject.department)
+                                .font(.headline)
+                                .foregroundStyle(.offset)
+                                .multilineTextAlignment(.center)
+                        }
+                    }
+                    
+                    if let wikidataURL = metObject.wikidataURL {
+                        MetButton(
+                            action: {
+                                openURL(wikidataURL)
+                            },
+                            label: "View Wiki"
+                        )
+                        .padding(.top, 18)
+                    }
+                }
             }
+            .background(Color.middleGrey)
         }
+        .navigationTitle(metObject.title)
+        .toolbarBackground(.visible, for: .navigationBar)
+        .toolbarBackground(.white, for: .navigationBar)
     }
 }
 
-#Preview {
+#Preview("With Image") {
     MetObjectDetail(
         metObject: MetObject.preview
+    )
+}
+
+#Preview("Without Image") {
+    MetObjectDetail(
+        metObject: MetObject.customPreview(from: "MetObject_no_image")
     )
 }

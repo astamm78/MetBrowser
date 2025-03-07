@@ -47,6 +47,16 @@ struct MetObject: Codable, Previewable, Identifiable {
         return URL(string: primaryImageSmall)
     }
     
+    var additionalImagesUrls: [URL?]? {
+        guard !additionalImages.isEmpty else { return nil}
+        
+        return additionalImages.map({ URL(string: $0) })
+    }
+    
+    var displayURL: URL? {
+        primaryImageURL ?? primaryImageSmallURL ?? (additionalImagesUrls?.first ?? nil)
+    }
+    
     var wikidataURL: URL? {
         guard !objectWikidata_URL.isEmpty else { return nil }
         

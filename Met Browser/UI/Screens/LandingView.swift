@@ -67,21 +67,14 @@ struct LandingView: View {
                         }
                         
                         if viewModel.showViewMoreButton {
-                            Button {
-                                Task {
-                                    await viewModel.loadNextPage()
-                                }
-                            } label: {
-                                HStack {
-                                    Text("View More")
-                                        .font(.callout)
-                                        .foregroundStyle(.white)
-                                }
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 6)
-                                .background(Color.accentColor)
-                                .cornerRadius(8)
-                            }
+                            MetButton(
+                                action: {
+                                    Task {
+                                        await viewModel.loadNextPage()
+                                    }
+                                },
+                                label: "View More"
+                            )
                         }
                     }
                 }
@@ -91,7 +84,6 @@ struct LandingView: View {
                 }
             }
         }
-        .navigationTitle(Text("The MET Browser"))
     }
 }
 
