@@ -15,7 +15,7 @@ final class Constituent_tests: XCTestCase {
     override func tearDownWithError() throws {}
 
     func test_decoding_missingID() throws {
-        let data = removeJSON_Key(key: "constituentID", from: Constituent.testData())
+        let data = removeKey("constituentID", from: Constituent.testData())
         
         AssertThrowsKeyNotFound(
             "constituentID",
@@ -25,7 +25,7 @@ final class Constituent_tests: XCTestCase {
     }
     
     func test_decoding_missingRole() throws {
-        let data = removeJSON_Key(key: "role", from: Constituent.testData())
+        let data = removeKey("role", from: Constituent.testData())
         
         AssertThrowsKeyNotFound(
             "role",
@@ -35,7 +35,7 @@ final class Constituent_tests: XCTestCase {
     }
     
     func test_decoding_missingName() throws {
-        let data = removeJSON_Key(key: "name", from: Constituent.testData())
+        let data = removeKey("name", from: Constituent.testData())
         
         AssertThrowsKeyNotFound(
             "name",
@@ -45,7 +45,7 @@ final class Constituent_tests: XCTestCase {
     }
     
     func test_decoding_missingConstituentWikidata_URL() throws {
-        let data = removeJSON_Key(key: "constituentWikidata_URL", from: Constituent.testData())
+        let data = removeKey("constituentWikidata_URL", from: Constituent.testData())
         
         AssertThrowsKeyNotFound(
             "constituentWikidata_URL",

@@ -32,7 +32,7 @@ final class ObjectsResponse_tests: XCTestCase {
     }
     
     func test_decoding_missingTotal() throws {
-        let data = removeJSON_Key(key: "total", from: ObjectsResponse.testData())
+        let data = removeKey("total", from: ObjectsResponse.testData())
 
         AssertThrowsKeyNotFound(
             "total",
@@ -42,7 +42,7 @@ final class ObjectsResponse_tests: XCTestCase {
     }
 
     func test_decoding_allowsMissingTags() throws {
-        let data = removeJSON_Key(key: "objectIDs", from: ObjectsResponse.testData())
+        let data = removeKey("objectIDs", from: ObjectsResponse.testData())
         let objectsResponse = ObjectsResponse.loadPreview(from: data)
         XCTAssertNotNil(objectsResponse)
     }

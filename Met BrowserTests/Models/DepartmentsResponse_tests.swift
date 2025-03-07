@@ -15,7 +15,7 @@ final class DepartmentsResponse_tests: XCTestCase {
     override func tearDownWithError() throws {}
 
     func test_decoding_missingDepartments() throws {
-        let data = removeJSON_Key(key: "departments", from: DepartmentsResponse.testData())
+        let data = removeKey("departments", from: DepartmentsResponse.testData())
         
         AssertThrowsKeyNotFound(
             "departments",

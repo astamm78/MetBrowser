@@ -15,7 +15,7 @@ final class Tag_tests: XCTestCase {
     override func tearDownWithError() throws {}
 
     func test_decoding_missingTerm() throws {
-        let data = removeJSON_Key(key: "term", from: Tag.testData())
+        let data = removeKey("term", from: Tag.testData())
 
         AssertThrowsKeyNotFound(
             "term",

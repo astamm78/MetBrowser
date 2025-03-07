@@ -15,7 +15,7 @@ final class MetObject_tests: XCTestCase {
     override func tearDownWithError() throws {}
 
     func test_decoding_missingObjectID() throws {
-        let data = removeJSON_Key(key: "objectID", from: MetObject.testData())
+        let data = removeKey("objectID", from: MetObject.testData())
 
         AssertThrowsKeyNotFound(
             "objectID",
@@ -25,7 +25,7 @@ final class MetObject_tests: XCTestCase {
     }
 
     func test_decoding_missingIsHighlight() throws {
-        let data = removeJSON_Key(key: "isHighlight", from: MetObject.testData())
+        let data = removeKey("isHighlight", from: MetObject.testData())
 
         AssertThrowsKeyNotFound(
             "isHighlight",
@@ -35,7 +35,7 @@ final class MetObject_tests: XCTestCase {
     }
 
     func test_decoding_missingAccessionYear() throws {
-        let data = removeJSON_Key(key: "accessionYear", from: MetObject.testData())
+        let data = removeKey("accessionYear", from: MetObject.testData())
 
         AssertThrowsKeyNotFound(
             "accessionYear",
@@ -45,7 +45,7 @@ final class MetObject_tests: XCTestCase {
     }
 
     func test_decoding_missingPrimaryImage() throws {
-        let data = removeJSON_Key(key: "primaryImage", from: MetObject.testData())
+        let data = removeKey("primaryImage", from: MetObject.testData())
 
         AssertThrowsKeyNotFound(
             "primaryImage",
@@ -55,7 +55,7 @@ final class MetObject_tests: XCTestCase {
     }
 
     func test_decoding_missingPrimaryImageSmall() throws {
-        let data = removeJSON_Key(key: "primaryImageSmall", from: MetObject.testData())
+        let data = removeKey("primaryImageSmall", from: MetObject.testData())
 
         AssertThrowsKeyNotFound(
             "primaryImageSmall",
@@ -65,7 +65,7 @@ final class MetObject_tests: XCTestCase {
     }
 
     func test_decoding_missingAdditionalImages() throws {
-        let data = removeJSON_Key(key: "additionalImages", from: MetObject.testData())
+        let data = removeKey("additionalImages", from: MetObject.testData())
 
         AssertThrowsKeyNotFound(
             "additionalImages",
@@ -75,7 +75,7 @@ final class MetObject_tests: XCTestCase {
     }
 
     func test_decoding_missingDepartment() throws {
-        let data = removeJSON_Key(key: "department", from: MetObject.testData())
+        let data = removeKey("department", from: MetObject.testData())
 
         AssertThrowsKeyNotFound(
             "department",
@@ -85,7 +85,7 @@ final class MetObject_tests: XCTestCase {
     }
 
     func test_decoding_missingTitle() throws {
-        let data = removeJSON_Key(key: "title", from: MetObject.testData())
+        let data = removeKey("title", from: MetObject.testData())
 
         AssertThrowsKeyNotFound(
             "title",
@@ -95,7 +95,7 @@ final class MetObject_tests: XCTestCase {
     }
 
     func test_decoding_missingCulture() throws {
-        let data = removeJSON_Key(key: "culture", from: MetObject.testData())
+        let data = removeKey("culture", from: MetObject.testData())
 
         AssertThrowsKeyNotFound(
             "culture",
@@ -105,7 +105,7 @@ final class MetObject_tests: XCTestCase {
     }
 
     func test_decoding_missingPeriod() throws {
-        let data = removeJSON_Key(key: "period", from: MetObject.testData())
+        let data = removeKey("period", from: MetObject.testData())
 
         AssertThrowsKeyNotFound(
             "period",
@@ -115,7 +115,7 @@ final class MetObject_tests: XCTestCase {
     }
 
     func test_decoding_missingDynasty() throws {
-        let data = removeJSON_Key(key: "dynasty", from: MetObject.testData())
+        let data = removeKey("dynasty", from: MetObject.testData())
 
         AssertThrowsKeyNotFound(
             "dynasty",
@@ -125,7 +125,7 @@ final class MetObject_tests: XCTestCase {
     }
 
     func test_decoding_missingObjectDate() throws {
-        let data = removeJSON_Key(key: "objectDate", from: MetObject.testData())
+        let data = removeKey("objectDate", from: MetObject.testData())
 
         AssertThrowsKeyNotFound(
             "objectDate",
@@ -135,7 +135,7 @@ final class MetObject_tests: XCTestCase {
     }
 
     func test_decoding_missingMedium() throws {
-        let data = removeJSON_Key(key: "medium", from: MetObject.testData())
+        let data = removeKey("medium", from: MetObject.testData())
 
         AssertThrowsKeyNotFound(
             "medium",
@@ -145,7 +145,7 @@ final class MetObject_tests: XCTestCase {
     }
 
     func test_decoding_missingDimensions() throws {
-        let data = removeJSON_Key(key: "dimensions", from: MetObject.testData())
+        let data = removeKey("dimensions", from: MetObject.testData())
 
         AssertThrowsKeyNotFound(
             "dimensions",
@@ -155,7 +155,7 @@ final class MetObject_tests: XCTestCase {
     }
 
     func test_decoding_missingObjectWikidataURL() throws {
-        let data = removeJSON_Key(key: "objectWikidata_URL", from: MetObject.testData())
+        let data = removeKey("objectWikidata_URL", from: MetObject.testData())
 
         AssertThrowsKeyNotFound(
             "objectWikidata_URL",
@@ -165,13 +165,13 @@ final class MetObject_tests: XCTestCase {
     }
 
     func test_decoding_allowsMissingTags() throws {
-        let data = removeJSON_Key(key: "tags", from: MetObject.testData())
+        let data = removeKey("tags", from: MetObject.testData())
         let metObject = MetObject.loadPreview(from: data)
         XCTAssertNotNil(metObject)
     }
 
     func test_decoding_allowsMissingConstituents() throws {
-        let data = removeJSON_Key(key: "constituents", from: MetObject.testData())
+        let data = removeKey("constituents", from: MetObject.testData())
         let metObject = MetObject.loadPreview(from: data)
         XCTAssertNotNil(metObject)
     }

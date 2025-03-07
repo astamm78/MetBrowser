@@ -21,9 +21,9 @@ extension XCTestCase {
         }
     }
     
-    // My own helper function to remove a JSON key from Test Data
+    // My own helper function to remove a key from Test Data
     
-    func removeJSON_Key(key: String, from data: Data) -> Data {
+    func removeKey(_ key: String, from data: Data) -> Data {
         var json = try! JSONSerialization.jsonObject(with: data) as? [String: Any]
         json?.removeValue(forKey: key)
         return try! JSONSerialization.data(withJSONObject: json!)
