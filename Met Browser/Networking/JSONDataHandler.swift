@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum JSONDataHandlerError: Error {
+enum JSONDataHandlerError: Error, Equatable {
     case emptyDataError
     case deserializationError(class: String)
 }
