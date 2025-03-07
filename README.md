@@ -30,3 +30,9 @@ To handle this, the app takes the array of *objectIDs* and creates it's own pagi
 Second, the **Search** endpoint provides us with a *hasImages* flag to use in the parameters. However, I found that even when that value is set to **true** often times we would still get results back that had no image URL data. This just means that we had to set up fallback images to display when no image information was returned from the API.
 
 And finally, I found that using an *objectID*—returned from either the **Search** or **Objects** results—in the **Object** would sometimes return an error. This is gracefully handled in the app, by logging an error message to the console. However, the downside is that we're not able to provide accurate result counts to the user and that loading each paginated collection can result in an inconsistent number of objects being loaded for each "page".
+
+## Testing and SwiftUI Previews
+
+The networking layer was set up with a networking handler protocol and dependency injection to allow for a mock network handler. This is used in both the testing frameworks, as well as within some SwiftUI previews where data would be loaded from the network via a ViewModel.
+
+UI tests are set up to pass a argument flag to the main app so it knows to configure itself with the mock network handler.
