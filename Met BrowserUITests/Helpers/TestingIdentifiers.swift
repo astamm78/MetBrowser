@@ -13,6 +13,7 @@ enum TestingIdentifiers {
         public static var searchBar = "searchBar"
         public static var searchButton = "searchButton"
         public static var departmentsDropdown = "departmentsDropdown"
+        public static var firstOption = "firstOption"
         public static var dropdownOption = "dropdownOption"
         public static var dropdownReset = "dropdownReset"
         public static var clearSearchButton = "clearSearchButton"

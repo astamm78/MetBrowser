@@ -64,4 +64,10 @@ struct LandingView: Screen {
         XCTAssertEqual(resultsHeader.label, "Met Highlights")
         return self
     }
+    
+    @discardableResult func verifyDepartmentsFirstOption(matches text: String) -> Self {
+        let firstOption = app.buttons[TestingIdentifiers.LandingView.firstOption]
+        XCTAssertEqual(firstOption.label, text)
+        return self
+    }
 }

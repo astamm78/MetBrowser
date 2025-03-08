@@ -40,6 +40,15 @@ final class Met_BrowserUITests: XCTestCase {
             .verifyDepartmentOptions()
     }
     
+    func test_selectingDepartmentUpdatesFirstOption() throws {
+        landingView
+            .tapDepartmentsDropdown()
+            .verifyDepartmentsFirstOption(matches: "Filter by Department")
+            .selectDropdownOption()
+            .tapDepartmentsDropdown()
+            .verifyDepartmentsFirstOption(matches: "Reset Department")
+    }
+    
     func test_selectingDepartmentUpdatesResultsHeader() throws {
         landingView
             .verifyHighlightsHeader()

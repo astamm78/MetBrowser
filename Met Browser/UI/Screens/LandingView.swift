@@ -10,7 +10,8 @@ import SwiftUI
 struct LandingView: View {
     @EnvironmentObject var viewModel: LandingViewModel
     
-    @State private var selectedDepartmentID: Int = 0
+    @FocusState var searchFieldIsFocused: Bool
+    
     
     var body: some View {
         NavigationView {
@@ -31,8 +32,10 @@ struct LandingView: View {
                             "Departments",
                             selection: $viewModel.selectedDepartmentID
                         ) {
-                            Text(viewModel.deptFilterOn ? "Filter by Department" : "Reset Department")
+                            Text(viewModel.deptFilterOn ? "Reset Department" : "Filter by Department")
                                 .tag(0)
+                                .accessibilityIdentifier(TestingIdentifiers.LandingView.firstOption)
+                            
                             ForEach(viewModel.departments) { department in
                                 Text(department.displayName)
                                     .tag(department.departmentId)
@@ -51,6 +54,7 @@ struct LandingView: View {
                         VStack {
                             HStack {
                                 TextField("Search by Term", text: $viewModel.searchTerm)
+                                    .focused($searchFieldIsFocused)
                                     .accessibilityIdentifier(TestingIdentifiers.LandingView.searchBar)
                                     .overlay(alignment: .trailing) {
                                         if !viewModel.searchTerm.isEmpty {
@@ -67,6 +71,8 @@ struct LandingView: View {
                                     }
                                 
                                 Button {
+                                    searchFieldIsFocused = false
+                                    
                                     Task {
                                         await viewModel.search()
                                     }
