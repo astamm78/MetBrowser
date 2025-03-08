@@ -7,21 +7,58 @@
 
 import XCTest
 
+@MainActor
 final class Met_BrowserUITests: XCTestCase {
+
+    private var app: XCUIApplication!
+    private var landingView: LandingView!
 
     override func setUpWithError() throws {
         continueAfterFailure = false
+
+        app = XCUIApplication()
+        app.launchArguments.append(UITestArguments.mockNetworkResponses)
+        app.launch()
+        
+        landingView = LandingView(app: app)
     }
 
-    override func tearDownWithError() throws {}
-
-    @MainActor
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
-            }
-        }
+    override func tearDownWithError() throws {
+        app = nil
+        landingView = nil
+    }
+    
+    func test_landingViewLoads() throws {
+        landingView
+            .verifyHeaderAppears()
+            .verifyHighlightsHeader()
+    }
+    
+    func test_departmentOptionsDisplay() throws {
+        landingView
+            .tapDepartmentsDropdown()
+            .verifyDepartmentOptions()
+    }
+    
+    func test_selectingDepartmentUpdatesResultsHeader() throws {
+        landingView
+            .verifyHighlightsHeader()
+            .tapDepartmentsDropdown()
+            .selectDropdownOption()
+            .verifySearchResultsHeader()
+    }
+    
+    func test_searchingForTermUpdatesResultsHeader() throws {
+        landingView
+            .verifyHighlightsHeader()
+            .enterSearchTerm("Testing")
+            .tapSearchButton()
+            .verifySearchResultsHeader()
+    }
+    
+    func test_tappingObjectCellLoadsDetailView() throws {
+        landingView
+            .tapObjectCell()
+            .verifyObjectDetailView()
     }
 }

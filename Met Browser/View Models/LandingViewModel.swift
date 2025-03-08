@@ -93,7 +93,7 @@ class LandingViewModel: ObservableObject {
     func search() async {
         resetView()
         
-        if selectedDepartmentID == 0 {
+        if selectedDepartmentID == 0 && searchTerm == "" {
             await loadHighlights()
         } else {
             do {

@@ -32,6 +32,7 @@ struct ConstituentsSection: View {
                         MetButton(action: {
                             openURL(url)
                         }, label: "View Artist Wiki")
+                        .accessibilityIdentifier(TestingIdentifiers.MetObjectDetail.artistWikiButton)
                     }
                 }
                 .padding()

@@ -52,6 +52,7 @@ struct ImageDetail: View {
             .cornerRadius(12)
         }
         .padding(.top, 20)
+        .accessibilityIdentifier(TestingIdentifiers.MetObjectDetail.imageDetail)
     }
 }
 

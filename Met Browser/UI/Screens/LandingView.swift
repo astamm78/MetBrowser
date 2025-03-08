@@ -86,6 +86,7 @@ struct LandingView: View {
                         .fontWeight(.bold)
                         .foregroundStyle(.offset)
                         .padding(.vertical, 12)
+                        .accessibilityIdentifier(TestingIdentifiers.LandingView.listHeader)
                     
                     ScrollView {
                         ForEach(viewModel.metObjects) { metObject in
@@ -94,6 +95,7 @@ struct LandingView: View {
                             } label: {
                                 MetObjectCell(metObject: metObject)
                             }
+                            .accessibilityIdentifier(TestingIdentifiers.LandingView.objectCell)
                         }
                         
                         if viewModel.showViewMoreButton {

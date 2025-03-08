@@ -52,6 +52,7 @@ struct MetObjectDetail: View {
                             label: "View Wiki for \"\(metObject.title)\""
                         )
                         .padding(.top, 18)
+                        .accessibilityIdentifier(TestingIdentifiers.MetObjectDetail.artworkWikiButton)
                     }
                     
                     if !metObject.detailsArray.isEmpty {
