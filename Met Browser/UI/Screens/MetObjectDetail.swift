@@ -20,7 +20,7 @@ struct MetObjectDetail: View {
                         .frame(maxWidth: .infinity)
                     
                     if !metObject.title.isEmpty {
-                        Text(metObject.title)
+                        Text(metObject.displayTitle)
                             .font(.title)
                             .fontDesign(.serif)
                             .foregroundStyle(.offset)
@@ -28,10 +28,6 @@ struct MetObjectDetail: View {
                     }
                     
                     VStack(spacing: 8) {
-//                        if !metObject.artistDisplayName.isEmpty {
-//                            Text(metObject.artistDisplayName)
-//                        }
-                        
                         if !metObject.department.isEmpty {
                             Text(metObject.department)
                                 .font(.headline)
@@ -40,14 +36,49 @@ struct MetObjectDetail: View {
                         }
                     }
                     
+                    if let tags = metObject.tags, !tags.isEmpty {
+                        HStack(spacing: 8) {
+                            ForEach(tags.prefix(3)) { tag in
+                                TagCell(tag: tag)
+                            }
+                        }
+                    }
+                    
                     if let wikidataURL = metObject.wikidataURL {
                         MetButton(
                             action: {
                                 openURL(wikidataURL)
                             },
-                            label: "View Wiki"
+                            label: "View Wiki for \"\(metObject.title)\""
                         )
                         .padding(.top, 18)
+                    }
+                    
+                    if !metObject.detailsArray.isEmpty {
+                        VStack {
+                            ForEach(metObject.detailsArray) { detail in
+                                HStack {
+                                    Text(detail.id)
+                                        .font(.headline)
+                                        .fontWeight(.bold)
+                                        .multilineTextAlignment(.leading)
+                                    
+                                    Spacer(minLength: 20)
+                                    
+                                    Text(detail.value)
+                                        .font(.subheadline)
+                                        .multilineTextAlignment(.trailing)
+                                }
+                                
+                                Rectangle()
+                                    .frame(height: 0.25)
+                            }
+                        }
+                        .padding()
+                    }
+                    
+                    if let constituents = metObject.constituents {
+                        ConstituentsSection(constituents: constituents)
                     }
                 }
             }

@@ -9,7 +9,16 @@
     "additionalImages": [
         "https://images.metmuseum.org/CRDImages/ad/original/12874.jpg"
     ],
-    "constituents": null,
+    "constituents": [
+        {
+            "constituentID": 162687,
+            "role": "Artist",
+            "name": "Andy Warhol",
+            "constituentULAN_URL": "http://vocab.getty.edu/page/ulan/500006031",
+            "constituentWikidata_URL": "https://www.wikidata.org/wiki/Q5603",
+            "gender": ""
+        }
+    ],
     "department": "The American Wing",
     "objectName": "Andiron",
     "title": "Andiron",

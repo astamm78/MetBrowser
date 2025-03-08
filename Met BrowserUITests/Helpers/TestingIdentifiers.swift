@@ -14,6 +14,7 @@ enum TestingIdentifiers {
         public static var searchButton = "searchButton"
         public static var departmentsDropdown = "departmentsDropdown"
         public static var dropdownOption = "dropdownOption"
+        public static var clearSearchButton = "clearSearchButton"
     }
 }
 

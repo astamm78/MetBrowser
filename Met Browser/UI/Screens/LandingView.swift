@@ -31,7 +31,8 @@ struct LandingView: View {
                             "Departments",
                             selection: $viewModel.selectedDepartmentID
                         ) {
-                            Text("Search in Department").tag(0)
+                            Text(viewModel.deptFilterOn ? "Filter by Department" : "Reset Department")
+                                .tag(0)
                             ForEach(viewModel.departments) { department in
                                 Text(department.displayName)
                                     .tag(department.departmentId)
@@ -41,11 +42,29 @@ struct LandingView: View {
                         .accentColor(.white)
                         .frame(maxWidth: .infinity)
                         .accessibilityIdentifier(TestingIdentifiers.LandingView.departmentsDropdown)
+                        .onChange(of: viewModel.selectedDepartmentID) { oldValue, newValue in
+                            Task {
+                                await viewModel.search()
+                            }
+                        }
                         
                         VStack {
                             HStack {
                                 TextField("Search by Term", text: $viewModel.searchTerm)
                                     .accessibilityIdentifier(TestingIdentifiers.LandingView.searchBar)
+                                    .overlay(alignment: .trailing) {
+                                        if !viewModel.searchTerm.isEmpty {
+                                            Button {
+                                                Task {
+                                                    await viewModel.clearTermAndSearch()
+                                                }
+                                            } label: {
+                                                Image(systemName: "xmark.circle.fill")
+                                                    .foregroundStyle(Color.offset)
+                                            }
+                                            .accessibilityIdentifier(TestingIdentifiers.LandingView.clearSearchButton)
+                                        }
+                                    }
                                 
                                 Button {
                                     Task {
@@ -61,6 +80,12 @@ struct LandingView: View {
                         .background(.white)
                     }
                     .background(Color.accentColor)
+                    
+                    Text(viewModel.resultsMode.displayText)
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.offset)
+                        .padding(.vertical, 12)
                     
                     ScrollView {
                         ForEach(viewModel.metObjects) { metObject in

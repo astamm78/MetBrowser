@@ -53,5 +53,17 @@ final class Constituent_tests: XCTestCase {
             from: data
         )
     }
+    
+    func test_wikidataURL() throws {
+        var constituent = Constituent.preview
+        
+        // When constituentWikidata_URL is present
+        XCTAssertNotNil(constituent.wikidataURL)
+        XCTAssertTrue(type(of: constituent.wikidataURL) == URL?.self, "Expected to be of type URL")
+        
+        // When constituentWikidata_URL is an empty string
+        constituent.constituentWikidata_URL = ""
+        XCTAssertNil(constituent.wikidataURL)
+    }
 
 }

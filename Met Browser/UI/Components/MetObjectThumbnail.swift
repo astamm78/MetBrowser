@@ -23,7 +23,7 @@ struct MetObjectThumbnail: View {
         .scaledToFill()
         .frame(width: 60, height: 60, alignment: .center)
         .clipped()
-        .background(Color.gray)
+        .background(Color.offset)
         .cornerRadius(30)
     }
 }

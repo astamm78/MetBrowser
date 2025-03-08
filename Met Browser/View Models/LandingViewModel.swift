@@ -10,6 +10,19 @@ import SwiftUICore
 
 @MainActor
 class LandingViewModel: ObservableObject {
+    enum ResultsMode {
+        case highlights, searchResults
+        
+        var displayText: String {
+            switch self {
+            case .highlights:
+                "Met Highlights"
+            case .searchResults:
+                "Search Results"
+            }
+        }
+    }
+    
     @Published var departments: [Department] = []
     @Published var selectedDepartmentID: Int = 0
     @Published var searchTerm: String = ""
@@ -17,6 +30,7 @@ class LandingViewModel: ObservableObject {
     @Published var dataLoading: Bool = true
     @Published var paginatedObjectIDs: PaginatedObjectIDs?
     @Published var currentPage: Int = 0
+    @Published var resultsMode: ResultsMode = .highlights
     
     let departmentService: DepartmentService!
     let searchService: SearchService!
@@ -31,6 +45,10 @@ class LandingViewModel: ObservableObject {
               currentPage != 0 else { return false }
         
         return currentPage < paginatedObjectIDs.totalPages
+    }
+    
+    var deptFilterOn: Bool {
+        selectedDepartmentID != 0
     }
     
     init(networkingHandler: NetworkingHandlerProtocol) {
@@ -64,6 +82,7 @@ class LandingViewModel: ObservableObject {
         
         do {
             let objectsResponse = try await objectService.getOilPaintingHighlights()
+            self.resultsMode = .highlights
             await self.handledObjectsResponse(objectsResponse, shuffled: true)
         } catch {
             print("ERROR - Loading Highlights \(error)")
@@ -74,13 +93,24 @@ class LandingViewModel: ObservableObject {
     func search() async {
         resetView()
         
-        do {
-            let objectsResponse = try await searchService.search(term: searchTerm, deptID: selectedDepartmentID)
-            await self.handledObjectsResponse(objectsResponse)
-        } catch {
-            print("ERROR - Loading Department \(error)")
-            dataLoading = false
+        if selectedDepartmentID == 0 {
+            await loadHighlights()
+        } else {
+            do {
+                let objectsResponse = try await searchService.search(term: searchTerm, deptID: selectedDepartmentID)
+                self.resultsMode = .searchResults
+                await self.handledObjectsResponse(objectsResponse)
+            } catch {
+                print("ERROR - Loading Department \(error)")
+                dataLoading = false
+            }
         }
+    }
+    
+    func clearTermAndSearch() async {
+        searchTerm = ""
+        
+        await search()
     }
     
     fileprivate func handledObjectsResponse(_ objectsResponse: ObjectsResponse, shuffled: Bool = false) async {
@@ -98,19 +128,16 @@ class LandingViewModel: ObservableObject {
         
         dataLoading = true
         
-        var mutableMetObjects = self.metObjects
-        
         for objectId in objectIDs {
             do {
                 let metObject = try await objectService.getObjectDetail(objectID: objectId)
-                mutableMetObjects.append(metObject)
+                metObjects.append(metObject)
             } catch {
                 print("ERROR - Loading Object \(error)")
             }
         }
         
         self.currentPage = page
-        self.metObjects = mutableMetObjects
         dataLoading = false
     }
 }

@@ -13,23 +13,24 @@ struct MetObjectCell: View {
     var body: some View {
         ZStack {
             VStack(alignment: .leading) {
-                HStack(alignment: .center, spacing: 12) {
+                HStack(alignment: .top, spacing: 12) {
                     MetObjectThumbnail(metObject: metObject)
                     
                     VStack(alignment: .leading, spacing: 4) {
                         if !metObject.title.isEmpty {
-                            Text(metObject.title)
+                            Text(metObject.displayTitle)
                                 .font(.title3)
                                 .foregroundStyle(Color.accentColor)
                                 .multilineTextAlignment(.leading)
                         }
                         
-//                        if !metObject.artistDisplayName.isEmpty {
-//                            Text(metObject.artistDisplayName)
-//                                .font(.subheadline)
-//                                .foregroundStyle(Color.offset)
-//                                .multilineTextAlignment(.leading)
-//                        }
+                        if let constituents = metObject.constituents,
+                           !constituents.isEmpty {
+                            Text(metObject.constituents?.first?.name ?? "")
+                                .font(.subheadline)
+                                .foregroundStyle(Color.offset)
+                                .multilineTextAlignment(.leading)
+                        }
                         
                         if let tags = metObject.tags, !tags.isEmpty {
                             HStack(spacing: 8) {

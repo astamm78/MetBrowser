@@ -30,6 +30,10 @@ struct MetObject: Codable, Previewable, Identifiable {
     var objectWikidata_URL: String
     var tags: [Tag]?
     
+    var displayTitle: String {
+        title.htmlCleaned()
+    }
+    
     var primaryImageURL: URL? {
         guard !primaryImage.isEmpty else { return nil }
         
@@ -57,10 +61,45 @@ struct MetObject: Codable, Previewable, Identifiable {
         
         return URL(string: objectWikidata_URL)
     }
+    
+    var detailsArray: [DetailEntry] {
+        var arr: [DetailEntry] = []
+        
+        if !culture.isEmpty {
+            arr.append(DetailEntry(id: "Culture", value: culture))
+        }
+        
+        if !period.isEmpty {
+            arr.append(DetailEntry(id: "Period", value: period))
+        }
+        
+        if !dynasty.isEmpty {
+            arr.append(DetailEntry(id: "Dynasty", value: dynasty))
+        }
+        
+        if !objectDate.isEmpty {
+            arr.append(DetailEntry(id: "Date", value: objectDate))
+        }
+        
+        if !medium.isEmpty {
+            arr.append(DetailEntry(id: "Medium", value: medium))
+        }
+        
+        if !dimensions.isEmpty {
+            arr.append(DetailEntry(id: "Dimensions", value: dimensions))
+        }
+        
+        return arr
+    }
 }
 
 typealias MetObjectCollection = [MetObject]
 
 extension MetObjectCollection: Previewable {
     typealias PreviewType = MetObjectCollection
+}
+
+struct DetailEntry: Identifiable {
+    var id: String
+    var value: String
 }
