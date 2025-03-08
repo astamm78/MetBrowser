@@ -21,11 +21,17 @@ struct LandingView: View {
                 
                 VStack(spacing: 0) {
                     VStack(spacing: 0) {
-                        Text("The Met Browser")
-                            .foregroundStyle(.offset)
-                            .fontDesign(.serif)
-                            .font(.largeTitle)
-                            .accessibilityIdentifier(TestingIdentifiers.LandingView.headerText)
+                        HStack(alignment: .center) {
+                            Image("MetLogo")
+                                .resizable()
+                                .frame(width: 60, height: 60, alignment: .center)
+                            
+                            Text("The Met Browser")
+                                .foregroundStyle(.offset)
+                                .fontDesign(.serif)
+                                .font(.largeTitle)
+                                .accessibilityIdentifier(TestingIdentifiers.LandingView.headerText)
+                        }
                         
                         
                         Picker(

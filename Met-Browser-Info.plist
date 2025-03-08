@@ -6,8 +6,10 @@
 	<dict>
 		<key>UIColorName</key>
 		<string>AccentColor</string>
-		<key>UILaunchScreen</key>
-		<dict/>
+		<key>UIImageName</key>
+		<string>MetLogo</string>
+		<key>UIImageRespectsSafeAreaInsets</key>
+		<true/>
 	</dict>
 </dict>
 </plist>
