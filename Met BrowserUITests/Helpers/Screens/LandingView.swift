@@ -37,6 +37,7 @@ struct LandingView: Screen {
     func tapObjectCell() -> MetObjectDetail {
         let objectCells = app.buttons.matching(identifier: TestingIdentifiers.LandingView.objectCell)
         objectCells.firstMatch.tap()
+        sleep(3)
         return MetObjectDetail(app: app)
     }
     
