@@ -10,28 +10,33 @@ import XCTest
 
 @MainActor
 final class LandingViewModel_tests: XCTestCase {
+    
+    var vm: LandingViewModel!
 
-    override func setUpWithError() throws {}
+    override func setUpWithError() throws {
+        Task {
+            vm = LandingViewModel.preview
+        }
+    }
 
-    override func tearDownWithError() throws {}
+    override func tearDownWithError() throws {
+        vm = nil
+    }
 
     func test_departmentsLoadOnInit() throws {
         Task {
-            let vm = LandingViewModel.preview
             XCTAssertTrue(vm.departments.count > 0)
         }
     }
     
     func test_highlightsLoadOnInit() throws {
         Task {
-            let vm = LandingViewModel.preview
             XCTAssertNotNil(vm.paginatedObjectIDs)
         }
     }
     
     func test_servicesLoadOnInit() throws {
         Task {
-            let vm = LandingViewModel.preview
             XCTAssertNotNil(vm.departmentService)
             XCTAssertNotNil(vm.objectService)
             XCTAssertNotNil(vm.searchService)
@@ -40,17 +45,25 @@ final class LandingViewModel_tests: XCTestCase {
     
     func test_loadNextPage() throws {
         Task {
-            let vm = LandingViewModel.preview
             XCTAssertEqual(vm.currentPage, 1)
             await vm.loadNextPage()
             XCTAssertEqual(vm.currentPage, 2)
         }
     }
     
+    func test_deptFilterOn() throws {
+        Task {
+            vm.selectedDepartmentID = 0
+            XCTAssertFalse(vm.deptFilterOn)
+            
+            vm.selectedDepartmentID = 1
+            XCTAssertTrue(vm.deptFilterOn)
+        }
+    }
+    
     func test_showViewMoreButton() throws {
         // If current page is less than total pages, return true
         Task {
-            let vm = LandingViewModel.preview
             vm.currentPage = 1
             vm.paginatedObjectIDs = PaginatedObjectIDs(
                 totalPages: 2,
@@ -63,7 +76,6 @@ final class LandingViewModel_tests: XCTestCase {
         
         // If current page is not less than total pages, return false
         Task {
-            let vm = LandingViewModel.preview
             vm.currentPage = 2
             vm.paginatedObjectIDs = PaginatedObjectIDs(
                 totalPages: 2,
@@ -76,10 +88,52 @@ final class LandingViewModel_tests: XCTestCase {
         
         // If current page is 0, return false
         Task {
-            let vm = LandingViewModel.preview
             vm.currentPage = 0
             
             XCTAssertFalse(vm.showViewMoreButton)
+        }
+    }
+    
+    func test_clearTermAndSearch() throws {
+        Task {
+            vm.searchTerm = "Testing"
+            vm.selectedDepartmentID = 9
+            vm.resultsMode = .searchResults
+            
+            await vm.clearTermAndSearch()
+            
+            XCTAssertEqual(vm.searchTerm, "")
+            XCTAssertEqual(vm.selectedDepartmentID, 0)
+            XCTAssertEqual(vm.resultsMode, .highlights)
+        }
+    }
+    
+    func test_search_updatedResultsMode() throws {
+        Task {
+            XCTAssertEqual(vm.resultsMode, .highlights)
+            
+            vm.searchTerm = "Testing"
+            await vm.search()
+            
+            XCTAssertEqual(vm.resultsMode, .searchResults)
+        }
+    }
+    
+    func test_searchUpdatesResultsMode() throws {
+        Task {
+            vm.resultsMode = .highlights
+            await vm.search()
+            XCTAssertEqual(vm.resultsMode, .searchResults)
+        }
+    }
+    
+    func test_loadHighlightsUpdatesResultsMode() throws {
+        Task {
+            vm.resultsMode = .searchResults
+            vm.selectedDepartmentID = 0
+            vm.searchTerm = ""
+            await vm.search()
+            XCTAssertEqual(vm.resultsMode, .highlights)
         }
     }
 
