@@ -2,7 +2,7 @@
 
 An iOS app for browsing works of art from [New York's Metropolitan Museum of Art](https://www.metmuseum.org).
 
-Using their [free API](https://metmuseum.github.io), this app initially loads up 15 oil painting selections from their featured collection. From there the user can select a specific department to view, search by a keyword, or combine the two. From the results screen you're able to view more information about an artwork, share or save the image with the iOS Share Sheet, or view even more information on the piece in the Met's wiki with your iOS browser. 
+Using their [free API](https://metmuseum.github.io), this app initially loads 15 oil painting selections from their featured collection. From there the user can select a specific department to view, search by a keyword, or combine the two. From the results screen you're able to view more information about an artwork, share the image with the iOS Share Sheet, and view even more information—if available—on the artwork and artists in the Met's wiki with your iOS browser. 
 
 To run the app, no API keys are needed.
 
@@ -27,9 +27,9 @@ First, the **Objects** and **Search** endpoints only return an array of *objectI
 
 To handle this, the app takes the array of *objectIDs* and creates it's own paginated collection, grouped into results of 15. This allows the main view of the app to call the **Object** endpoint for one paginated group at a time. Once an object is loaded and displayed on the results view, no further API call is needed to render the detail view for that object.
 
-Second, the **Search** endpoint provides us with a *hasImages* flag to use in the parameters. However, I found that even when that value is set to **true** often times we would still get results back that had no image URL data. This just means that we had to set up fallback images to display when no image information was returned from the API.
+Second, the **Search** endpoint provides us with a *hasImages* flag to use in the parameters. However, even when that value is set to **true**, results would still occasionally have no image URL data. To fix this issue, I set up fallback images to display when no image information was returned from the API.
 
-And finally, I found that passing an *objectID*—returned from either the **Search** or **Objects** results—to the **Object** endpoint would sometimes return an error. This is gracefully handled in the app, by logging an error message to the console. However, the downside is that we're not able to provide accurate result counts to the user and that loading each paginated collection can result in an inconsistent number of objects being loaded for each "page".
+Finally, passing an *objectID*—returned from either the **Search** or **Objects** results—to the **Object** endpoint would sometimes return an error. This is gracefully handled in the app by logging an error message to the console. The downside is we're not able to provide accurate result counts to the user and loading each paginated collection can result in an inconsistent number of objects being loaded for each "page".
 
 ## Testing and SwiftUI Previews
 
