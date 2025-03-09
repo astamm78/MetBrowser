@@ -21,8 +21,10 @@ final class SearchService_tests: XCTestCase {
     }
 
     func test_search_returnsObjectsResponse() async throws {
-        let response = try await searchService.search(term: "Search Term", deptID: 99)
-        XCTAssertTrue(type(of: response) == ObjectsResponse.self, "Expected response to be of type ObjectsResponse")
+        Task {
+            let response = try await searchService.search(term: "Search Term", deptID: 99)
+            XCTAssertTrue(type(of: response) == ObjectsResponse.self, "Expected response to be of type ObjectsResponse")            
+        }
     }
 
 }

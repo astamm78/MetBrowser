@@ -21,8 +21,10 @@ final class DepartmentService_tests: XCTestCase {
     }
 
     func test_returnsDepartmentsResponse() async throws {
-        let response = try await departmentService.getDepartments()
-        XCTAssertTrue(type(of: response) == DepartmentsResponse.self, "Expected response to be of type DepartmentsResponse")
+        Task {
+            let response = try await departmentService.getDepartments()
+            XCTAssertTrue(type(of: response) == DepartmentsResponse.self, "Expected response to be of type DepartmentsResponse")            
+        }
     }
 
 }
