@@ -13,11 +13,13 @@
       "containerPath" : "container:Met Browser.xcodeproj",
       "identifier" : "E4A5A2ED2D77772F00631F4A",
       "name" : "Met Browser"
-    }
+    },
+    "testRepetitionMode" : "fixedIterations",
+    "testTimeoutsEnabled" : true
   },
   "testTargets" : [
     {
-      "parallelizable" : true,
+      "parallelizable" : false,
       "skippedTests" : [
         "Met_BrowserTests",
         "Met_BrowserTests\/testExample()",
