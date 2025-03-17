@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import OSLog
 
 enum NetworkingHandlerError: Error {
     case responseError(afError: AFError)
@@ -27,7 +28,9 @@ struct NetworkingHandler: NetworkingHandlerProtocol {
                 parameters: endpoint.params
             )
             .responseData { response in
-                print("URL :: \(String(describing: response.request?.url))")
+                if let url = response.request?.url {
+                    Logger.network.debug("Request URL: \(url, privacy: .public)")
+                }
                 
                 switch(response.result) {
                 case let .success(data):
@@ -35,11 +38,13 @@ struct NetworkingHandler: NetworkingHandlerProtocol {
                         let obj: T = try JSONDataHandler.shared.decodeData(data)
                         continuation.resume(returning: obj)
                     } catch {
+                        Logger.network.error("JSON decoding error: \(error as! JSONDataHandlerError, privacy: .public)")
                         continuation.resume(
                             throwing: NetworkingHandlerError.decodingError(dataError: error as! JSONDataHandlerError)
                         )
                     }
                 case let .failure(error):
+                    Logger.network.error("Network request failed: \(error, privacy: .public)")
                     continuation.resume(throwing: NetworkingHandlerError.responseError(afError: error))
                 }
             }

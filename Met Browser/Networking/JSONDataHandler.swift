@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 enum JSONDataHandlerError: Error, Equatable {
     case emptyDataError
@@ -21,14 +22,14 @@ struct JSONDataHandler {
         }
 
         let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]
-        print(json ?? "NO JSON")
+        Logger.codable.info("JSON: \(String(describing: json))")
         
         do {
             let responseObject: T = try JSONDecoder().decode(T.self, from: data)
             return responseObject
         } catch {
-            print("### DESERIALIZATION ERROR :: " + String(describing: T.self))
-            print("### " + String(describing: error))
+            Logger.codable.error("### DESERIALIZATION ERROR :: \(String(describing: T.self))")
+            Logger.codable.error("### \(String(describing: error))")
             throw JSONDataHandlerError.deserializationError(class: String(describing: T.self))
         }
     }

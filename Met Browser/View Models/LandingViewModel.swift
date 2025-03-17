@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUICore
+import OSLog
 
 @MainActor
 class LandingViewModel: ObservableObject {
@@ -67,7 +68,7 @@ class LandingViewModel: ObservableObject {
             let departmentsResponse = try await departmentService.getDepartments()
             self.departments = departmentsResponse.departments
         } catch {
-            print("ERROR - Loading Departments \(error)")
+            Logger.viewModels.error("Failed to load departments: \(error, privacy: .public)")
         }
     }
 
@@ -85,7 +86,7 @@ class LandingViewModel: ObservableObject {
             self.resultsMode = .highlights
             await self.handledObjectsResponse(objectsResponse, shuffled: true)
         } catch {
-            print("ERROR - Loading Highlights \(error)")
+            Logger.viewModels.error("Failed to load highlights: \(error, privacy: .public)")
             dataLoading = false
         }
     }
@@ -101,7 +102,7 @@ class LandingViewModel: ObservableObject {
                 self.resultsMode = .searchResults
                 await self.handledObjectsResponse(objectsResponse)
             } catch {
-                print("ERROR - Loading Department \(error)")
+                Logger.viewModels.error("Failed to perform search: \(error, privacy: .public)")
                 dataLoading = false
             }
         }
@@ -133,7 +134,7 @@ class LandingViewModel: ObservableObject {
                 let metObject = try await objectService.getObjectDetail(objectID: objectId)
                 metObjects.append(metObject)
             } catch {
-                print("ERROR - Loading Object \(error)")
+                Logger.viewModels.error("Failed to load object \(objectId, privacy: .public): \(error, privacy: .public)")
             }
         }
         

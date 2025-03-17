@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import OSLog
 
 struct MockNetworkingHandler: NetworkingHandlerProtocol {
     func request<T: Codable>(endpoint: MetEndpoint) async throws -> T {
-        print("### RETURNING MOCK DATA")
+        Logger.network.info("### RETURNING MOCK DATA")
         let filename = String(describing: T.self)
         let url = Bundle.main.url(forResource: filename, withExtension: "json")!
         let data = try Data(contentsOf: url)
