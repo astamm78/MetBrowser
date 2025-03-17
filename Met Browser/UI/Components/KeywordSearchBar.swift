@@ -18,6 +18,10 @@ struct KeywordSearchBar: View {
                 TextField("Search by Term", text: $viewModel.searchTerm)
                     .focused($searchFieldIsFocused)
                     .accessibilityIdentifier(TestingIdentifiers.LandingView.searchBar)
+                    .submitLabel(.search)
+                    .onSubmit {
+                        performSearch()
+                    }
                     .overlay(alignment: .trailing) {
                         if !viewModel.searchTerm.isEmpty {
                             Button {
@@ -47,7 +51,14 @@ struct KeywordSearchBar: View {
         }
         .background(.white)
     }
+    
+    private func performSearch() {
+        searchFieldIsFocused = false
         
+        Task {
+            await viewModel.search()
+        }
+    }
 }
 
 #Preview {
