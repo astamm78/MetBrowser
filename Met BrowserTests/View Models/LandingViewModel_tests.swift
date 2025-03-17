@@ -16,6 +16,7 @@ final class LandingViewModel_tests: XCTestCase {
     override func setUpWithError() throws {
         Task {
             vm = LandingViewModel.preview
+            await vm.loadInitialData()
         }
     }
 

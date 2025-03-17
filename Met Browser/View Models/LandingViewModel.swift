@@ -55,11 +55,11 @@ class LandingViewModel: ObservableObject {
         self.departmentService = DepartmentService(networkingHandler: networkingHandler)
         self.searchService = SearchService(networkingHandler: networkingHandler)
         self.objectService = ObjectService(networkingHandler: networkingHandler)
-        
-        Task {
-            await loadDepartments()
-            await loadHighlights()
-        }
+    }
+    
+    func loadInitialData() async {
+        await loadDepartments()
+        await loadHighlights()
     }
     
     fileprivate func loadDepartments() async {

@@ -36,6 +36,9 @@ struct LandingView: View {
                 }
             }
         }
+        .task {
+            await viewModel.loadInitialData()
+        }
     }
     
     var header: some View {
