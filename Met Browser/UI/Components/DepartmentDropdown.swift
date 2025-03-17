@@ -28,10 +28,8 @@ struct DepartmentDropdown: View {
         .accentColor(.white)
         .frame(maxWidth: .infinity)
         .accessibilityIdentifier(TestingIdentifiers.LandingView.departmentsDropdown)
-        .onChange(of: viewModel.selectedDepartmentID) { oldValue, newValue in
-            Task {
-                await viewModel.search()
-            }
+        .task(id: viewModel.selectedDepartmentID) {
+            await viewModel.search()
         }
     }
 }
