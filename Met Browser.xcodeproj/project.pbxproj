@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E41CC3E92D88C616005F9D09 /* AsyncButton in Frameworks */ = {isa = PBXBuildFile; productRef = E41CC3E82D88C616005F9D09 /* AsyncButton */; };
 		E421A0B12D7B9A27001E39A7 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = E421A0B02D7B9A27001E39A7 /* SDWebImageSwiftUI */; };
 		E491CB452D7B5C1D008870E4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = E491CB442D7B5C1D008870E4 /* README.md */; };
 		E4F1FAC02D778E9500FED931 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E4F1FABF2D778E9500FED931 /* Alamofire */; };
@@ -76,6 +77,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4F1FAC82D778F0E00FED931 /* SDWebImageSwiftUI in Frameworks */,
+				E41CC3E92D88C616005F9D09 /* AsyncButton in Frameworks */,
 				E4F1FAC02D778E9500FED931 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -150,6 +152,7 @@
 			packageProductDependencies = (
 				E4F1FABF2D778E9500FED931 /* Alamofire */,
 				E4F1FAC72D778F0E00FED931 /* SDWebImageSwiftUI */,
+				E41CC3E82D88C616005F9D09 /* AsyncButton */,
 			);
 			productName = "Met Browser";
 			productReference = E4A5A2EE2D77772F00631F4A /* Met Browser.app */;
@@ -237,6 +240,7 @@
 			packageReferences = (
 				E4F1FABE2D778E9500FED931 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				E4F1FAC62D778F0E00FED931 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				E41CC3E72D88C616005F9D09 /* XCRemoteSwiftPackageReference "swiftui-async-button" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E4A5A2EF2D77772F00631F4A /* Products */;
@@ -616,6 +620,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		E41CC3E72D88C616005F9D09 /* XCRemoteSwiftPackageReference "swiftui-async-button" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-async-button";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
 		E4F1FABE2D778E9500FED931 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
@@ -635,6 +647,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E41CC3E82D88C616005F9D09 /* AsyncButton */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E41CC3E72D88C616005F9D09 /* XCRemoteSwiftPackageReference "swiftui-async-button" */;
+			productName = AsyncButton;
+		};
 		E421A0B02D7B9A27001E39A7 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E4F1FAC62D778F0E00FED931 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;

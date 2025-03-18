@@ -24,9 +24,7 @@ struct ResultsList: View {
             if viewModel.showViewMoreButton {
                 MetButton(
                     action: {
-                        Task {
-                            await viewModel.loadNextPage()
-                        }
+                        await viewModel.loadNextPage()
                     },
                     label: "View More"
                 )

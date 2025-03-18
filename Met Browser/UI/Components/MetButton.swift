@@ -6,14 +6,15 @@
 //
 
 import SwiftUI
+import AsyncButton
 
 struct MetButton: View {
-    var action: (() -> Void)?
+    var action: (() async throws -> Void)?
     var label: String
     
     var body: some View {
-        Button {
-            action?()
+        AsyncButton {
+            try await action?()
         } label: {
             HStack {
                 Text(label)
@@ -25,7 +26,6 @@ struct MetButton: View {
             .background(Color.accentColor)
             .cornerRadius(8)
         }
-
     }
 }
 

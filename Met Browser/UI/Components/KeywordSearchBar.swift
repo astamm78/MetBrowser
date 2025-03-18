@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AsyncButton
 
 struct KeywordSearchBar: View {
     @EnvironmentObject var viewModel: LandingViewModel
@@ -24,10 +25,8 @@ struct KeywordSearchBar: View {
                     }
                     .overlay(alignment: .trailing) {
                         if !viewModel.searchTerm.isEmpty {
-                            Button {
-                                Task {
-                                    await viewModel.clearTermAndSearch()
-                                }
+                            AsyncButton {
+                                await viewModel.clearTermAndSearch()
                             } label: {
                                 Image(systemName: "xmark.circle.fill")
                                     .foregroundStyle(Color.offset)
@@ -36,12 +35,10 @@ struct KeywordSearchBar: View {
                         }
                     }
                 
-                Button {
+                AsyncButton {
                     searchFieldIsFocused = false
                     
-                    Task {
-                        await viewModel.search()
-                    }
+                    await viewModel.search()
                 } label: {
                     Text("Search")
                 }
